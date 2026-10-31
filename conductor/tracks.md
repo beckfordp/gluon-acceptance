@@ -4,11 +4,6 @@ This file tracks all major tracks for the project.
 
 ---
 
-- [x] **Track: Acceptance 4: Account and checkout**
-  *Link: [./tracks/account-checkout_20261031/](./tracks/account-checkout_20261031/)*
-
----
-
 ## Backlog
 
 Title-only placeholders for future tracks — not yet detailed (no spec/plan, no linked
