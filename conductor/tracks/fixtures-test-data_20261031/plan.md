@@ -3,7 +3,7 @@
 ## Phase 1: Pure helpers and config
 - [x] Task: config — `KAFKA_CONNECT_URL`, `viteEnv` pins mock flags off (tests first) a067a90
 - [x] Task: `src/testData.ts` — throwaway email, test cards/address, stocked-product picker (tests first) 0db1849
-- [ ] Task: `src/precheck.ts` — evaluate readiness results into one message (tests first)
+- [x] Task: `src/precheck.ts` — evaluate readiness results into one message (tests first) 15a7fcc
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Pure helpers and config' (Protocol in workflow.md)
 
 ## Phase 2: API helpers, fixtures, cleanup, precheck (ACC-2.1–2.3)
