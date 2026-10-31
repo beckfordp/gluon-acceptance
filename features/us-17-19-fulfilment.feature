@@ -19,7 +19,7 @@ Feature: Fulfilment and capture (US-17, US-19)
       | Picking | packs          | Packed     |
       | Packed  | dispatches     | Dispatched |
 
-  @US-17.3 @US-17.4 @US-19.1 @US-19.2 @US-19.5
+  @US-14.3 @US-17.3 @US-17.4 @US-19.1 @US-19.2 @US-19.5
   Scenario: My payment is captured once my order is dispatched
     Given I have bought it with card "4242 4242 4242 4242"
     When the operator picks, packs and dispatches my order

@@ -9,6 +9,7 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
+    "allowImportingTsExtensions": true,
 
     /* Linting */
     "strict": true,
@@ -17,5 +18,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "steps", "tests", "*.ts"]
+  "include": ["src", "steps", "tests", "scripts", "*.ts"]
 }

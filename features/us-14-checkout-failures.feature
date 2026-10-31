@@ -5,7 +5,7 @@ Feature: Checkout failures (US-14)
   Background:
     Given a product is in stock
 
-  @US-14.2 @US-14.4
+  @US-14.1 @US-14.2 @US-14.4
   Scenario Outline: A declined card can be retried with another
     Given I am at checkout
     When I place my order paying with card "<declined card>"
@@ -19,7 +19,7 @@ Feature: Checkout failures (US-14)
       | declined card       | approved card       |
       | 4000 0000 0000 0002 | 4242 4242 4242 4242 |
 
-  @US-14.2 @US-14.4
+  @US-4.1 @US-14.2 @US-14.4
   Scenario Outline: An item that sold out (<available> left) can be removed and the rest ordered
     Given I am at checkout with 2 of it and 1 of another product
     When only <available> of it is left in stock
