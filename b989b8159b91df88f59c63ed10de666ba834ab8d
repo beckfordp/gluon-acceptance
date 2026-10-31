@@ -1,0 +1,3 @@
+Phase 4 verification: Smoke feature (prompting off - scripted)
+Automated: scripts/verify-phase4.sh -> PASS: bddgen/lint/typecheck/9 unit tests; 100 catalog items; @smoke passed vs gluon-local with Given/When/Then steps in JSON report; gshop dev server stopped after. CI green (41202876547).
+Manual walkthrough skipped: .claude/prompt-off.
