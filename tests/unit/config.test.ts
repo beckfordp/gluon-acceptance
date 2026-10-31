@@ -1,0 +1,93 @@
+import { describe, expect, it } from 'vitest'
+import { SERVICES, configFromEnv, loadConfig, viteEnv } from '../../src/config'
+
+const expectedDefaults = {
+  order: 'http://localhost:18080',
+  payment: 'http://localhost:18081',
+  inventory: 'http://localhost:18082',
+  user: 'http://localhost:18083',
+  catalog: 'http://localhost:18084',
+  fulfilment: 'http://localhost:18085',
+  cart: 'http://localhost:18086',
+  notification: 'http://localhost:18087',
+}
+
+describe('loadConfig', () => {
+  it('defaults gshop and every service to the port-forward map', () => {
+    const result = loadConfig({})
+    expect(result).toEqual({
+      ok: true,
+      config: {
+        gshopUrl: 'http://localhost:5173',
+        gshopDir: '../../frontends/gshop',
+        serviceUrls: expectedDefaults,
+      },
+    })
+  })
+
+  it('treats empty values as unset', () => {
+    const result = loadConfig({ GSHOP_URL: '', ORDER_URL: '' })
+    expect(result.ok && result.config.gshopUrl).toBe('http://localhost:5173')
+    expect(result.ok && result.config.serviceUrls.order).toBe('http://localhost:18080')
+  })
+
+  it('applies overrides and strips a trailing slash', () => {
+    const result = loadConfig({
+      GSHOP_URL: 'http://gshop.test:3000/',
+      GSHOP_DIR: '/tmp/gshop',
+      CATALOG_URL: 'https://catalog.test/',
+    })
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.config.gshopUrl).toBe('http://gshop.test:3000')
+    expect(result.config.gshopDir).toBe('/tmp/gshop')
+    expect(result.config.serviceUrls.catalog).toBe('https://catalog.test')
+    expect(result.config.serviceUrls.order).toBe('http://localhost:18080')
+  })
+
+  it('accumulates every invalid URL rather than stopping at the first', () => {
+    const result = loadConfig({ ORDER_URL: 'nope', CART_URL: 'ftp://cart.test' })
+    expect(result.ok).toBe(false)
+    if (result.ok) return
+    expect(result.errors.map((e) => e.key)).toEqual(['ORDER_URL', 'CART_URL'])
+    expect(result.errors[0].message).toContain('ORDER_URL')
+    expect(result.errors[0].message).toContain("'nope'")
+  })
+
+  it('rejects a URL with no host', () => {
+    const result = loadConfig({ GSHOP_URL: 'http://' })
+    expect(result.ok).toBe(false)
+    if (result.ok) return
+    expect(result.errors.map((e) => e.key)).toEqual(['GSHOP_URL'])
+  })
+
+  it('rejects a blank GSHOP_DIR', () => {
+    const result = loadConfig({ GSHOP_DIR: '   ' })
+    expect(result.ok).toBe(false)
+    if (result.ok) return
+    expect(result.errors.map((e) => e.key)).toEqual(['GSHOP_DIR'])
+  })
+})
+
+describe('viteEnv', () => {
+  it('maps every service to its VITE_<NAME>_SERVICE_URL', () => {
+    const result = loadConfig({ USER_URL: 'http://user.test' })
+    if (!result.ok) throw new Error('expected valid config')
+    const env = viteEnv(result.config)
+    expect(Object.keys(env)).toHaveLength(SERVICES.length)
+    expect(env.VITE_USER_SERVICE_URL).toBe('http://user.test')
+    expect(env.VITE_FULFILMENT_SERVICE_URL).toBe('http://localhost:18085')
+  })
+})
+
+describe('configFromEnv', () => {
+  it('returns the config when valid', () => {
+    expect(configFromEnv({}).serviceUrls).toEqual(expectedDefaults)
+  })
+
+  it('throws one error listing every problem', () => {
+    expect(() => configFromEnv({ ORDER_URL: 'nope', GSHOP_DIR: ' ' })).toThrow(
+      /ORDER_URL[\s\S]*GSHOP_DIR|GSHOP_DIR[\s\S]*ORDER_URL/,
+    )
+  })
+})
