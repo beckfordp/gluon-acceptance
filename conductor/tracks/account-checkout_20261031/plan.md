@@ -5,7 +5,7 @@
 - [x] Task: `features/us-16-account.feature` — sign up, sign in/out, wrong password, duplicate email, mismatched passwords 954d515
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Account' (Protocol in workflow.md)
 
-## Phase 2: Checkout happy path (ACC-4.2)
+## Phase 2: Checkout happy path (ACC-4.2) [checkpoint: acf443a]
 - [x] Task: `ConfirmationPage`, `orders.record`, stock snapshot on `stockedProduct`; checkout steps 64ee169
 - [x] Task: `features/us-11-14-checkout.feature` — anonymous, billing differs, signed-in history 346a03e
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Checkout happy path' (Protocol in workflow.md)
