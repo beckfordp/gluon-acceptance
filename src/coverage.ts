@@ -43,8 +43,9 @@ export function parseStoryTasks(markdown: string): StoryTask[] {
     const match = TASK_LINE.exec(line);
     if (match === null) return [];
     const [, mark, id, rest] = match;
-    // "title — done 2026-10-28 (...)" / "title — mechanism TBD": the note isn't part of the title.
-    const title = rest.split(' — ')[0].trim();
+    // "title — done 2026-10-28 (...)" / "title — **superseded ...": the status note isn't
+    // part of the title, but a title may itself contain " — ".
+    const title = rest.replace(/ — (done |\*\*).*$/, '').trim();
     return [{ id, title, done: mark === 'x' }];
   });
 }

@@ -2,7 +2,7 @@
 // scenarios tagged with it (ACC-6.1). Exits 1, listing the problems, unless
 // every done task is covered or out of scope.
 //   npm run coverage:matrix   (GLUON_DIR defaults to ../..)
-import { mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { buildMatrix, parseFeature, parseStoryTasks, renderMatrix } from '../src/coverage.ts';
 import { OUT_OF_SCOPE } from '../src/outOfScope.ts';
@@ -11,6 +11,11 @@ const root = path.resolve(import.meta.dirname, '..');
 const storiesPath = path.join(path.resolve(root, process.env.GLUON_DIR ?? '../..'), 'docs/user-stories.md');
 const featuresDir = path.join(root, 'features');
 const outPath = path.join(root, 'target/coverage-matrix.md');
+
+if (!existsSync(storiesPath)) {
+  console.log(`FAIL: ${storiesPath} not found; set GLUON_DIR to the gluon checkout`);
+  process.exit(1);
+}
 
 const tasks = parseStoryTasks(readFileSync(storiesPath, 'utf8'));
 const scenarios = readdirSync(featuresDir)

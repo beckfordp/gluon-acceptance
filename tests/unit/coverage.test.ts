@@ -7,6 +7,8 @@ const STORIES = `# User stories
 ### Tasks
 - [x] US-1.1: browse/list catalog endpoints (catalog-service)
 - [x] US-1.2: Redis read-through cache (catalog-service) — done 2026-10-20 (\`cache_20261020\`)
+- [x] US-6.2: avoid double-charging (payment-service) — **superseded and done 2026-10-27**: retired
+- [x] US-14.4: checkout orchestration — create method → \`POST /orders\` (gshop) — done 2026-10-27
 - not a task line
   - [x] US-9.9: indented, so not a task
 
@@ -42,11 +44,13 @@ Feature: Add to cart (US-2)
 const task = (id: string, done = true): StoryTask => ({ id, title: `title ${id}`, done });
 
 describe('parseStoryTasks', () => {
-  it('reads top-level task lines, done or not, with the done note dropped', () => {
+  it('reads top-level task lines, done or not, with the status note dropped', () => {
     expect(parseStoryTasks(STORIES)).toEqual([
       { id: 'US-1.1', title: 'browse/list catalog endpoints (catalog-service)', done: true },
       { id: 'US-1.2', title: 'Redis read-through cache (catalog-service)', done: true },
-      { id: 'US-20.1', title: 'background sweep (payment-service)', done: false },
+      { id: 'US-6.2', title: 'avoid double-charging (payment-service)', done: true },
+      { id: 'US-14.4', title: 'checkout orchestration — create method → `POST /orders` (gshop)', done: true },
+      { id: 'US-20.1', title: 'background sweep (payment-service) — mechanism TBD', done: false },
     ]);
   });
 });
