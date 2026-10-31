@@ -8,3 +8,6 @@
 ## Phase 2: Runner (ACC-6.2) [checkpoint: 903f88f]
 - [x] Task: gluon `bin/run-acceptance` — preflight, matrix, suite, inventory check, report; README usage (gluon 929795e)
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Runner' (Protocol in workflow.md)
+
+## Phase: Review Fixes
+- [x] Task: Apply review suggestions ed8a32a
