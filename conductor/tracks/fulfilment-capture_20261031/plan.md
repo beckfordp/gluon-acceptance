@@ -1,9 +1,9 @@
 # Plan — Acceptance 5: Fulfilment and capture
 
 ## Phase 1: Pick, pack, dispatch (ACC-5.1, ACC-5.4)
-- [x] Task: `FulfilmentPage` page object (open via Admin, task card by order ID with refresh-until-present, actions, badge/outcome); fulfilment steps; history "eventually shows status" step polling via reopen 20928c0
+- [x] Task: `FulfilmentPage` page object (open via Admin, task card by order ID with refresh-until-present, actions, badge/outcome); fulfilment steps; history "eventually shows status" step (polls the uncached order API, then opens history: its cache has a 60s TTL) 20928c0
 - [x] Task: `features/us-17-19-fulfilment.feature` — pick/pack/dispatch, captured → `Confirmed` 23200b2
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Pick, pack, dispatch' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Pick, pack, dispatch' (Protocol in workflow.md)
 
 ## Phase 2: Dispatch failure (ACC-5.2)
 - [ ] Task: report-problem steps; stock-released step (poll inventory back to snapshot)
