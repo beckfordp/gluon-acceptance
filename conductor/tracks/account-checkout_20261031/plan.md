@@ -12,4 +12,4 @@
 
 ## Phase 3: Failure paths (ACC-4.3)
 - [x] Task: `otherStockedProduct`, sell-out step; `features/us-14-checkout-failures.feature` outlines — decline, out of stock, validation 02816e6
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Failure paths' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Failure paths' (Protocol in workflow.md)
