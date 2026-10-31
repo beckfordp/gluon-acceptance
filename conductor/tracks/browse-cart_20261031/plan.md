@@ -5,7 +5,7 @@
 - [x] Task: `CatalogPage` card details + load more; steps; product-details and paging scenarios 79ba2bb
 - [x] Task: Conductor - User Manual Verification 'Phase 1: US-1 browse catalog' (Protocol in workflow.md)
 
-## Phase 2: US-2 cart (ACC-3.2)
+## Phase 2: US-2 cart (ACC-3.2) [checkpoint: cc8e98f]
 - [x] Task: `stockedProduct` from the first catalog page; `CatalogPage.addToCart`, `CartPage`; cart steps 9a09763
 - [x] Task: `features/us-02-cart.feature` — add, +1, remove, empty; green against gluon-local 1d741cb
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: US-2 cart' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: US-2 cart' (Protocol in workflow.md)
