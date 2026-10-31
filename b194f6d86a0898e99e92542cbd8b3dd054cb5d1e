@@ -1,0 +1,4 @@
+Task: npm project (Acceptance 1, Phase 1)
+Summary: npm/ESM TypeScript project; exact-pinned @playwright/test 1.64.1, playwright-bdd 9.2.1, typescript 6.0.3, eslint 10.14.0 + typescript-eslint 8.72.1, vitest 5.0.5 (+coverage-v8); Chromium installed. Node 24 via .nvmrc.
+Files: .nvmrc, package.json, package-lock.json, tsconfig.json, eslint.config.js, .gitignore
+Why: toolchain per tech-stack.md (ADR 0023). typecheck verification deferred to Task 2 (no TS inputs yet). npm audit: 11 moderate in dev lint chain (minimatch), no non-breaking fix.
