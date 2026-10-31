@@ -1,0 +1,1 @@
+Phase 3 verification: scripts/verify-a4-phase3.sh (prompting off). CI: 34 unit tests, lint, typecheck ok. 11 failure scenarios passed; inventory byte-identical. Full suite also run: 27/27 passed, inventory byte-identical.
