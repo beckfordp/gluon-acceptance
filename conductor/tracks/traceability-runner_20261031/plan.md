@@ -5,6 +5,6 @@
 - [x] Task: `src/outOfScope.ts`, missing `@US-N.M` tags on existing scenarios, `scripts/coverage-matrix.ts` + `npm run coverage:matrix`; 0 missing da56fba
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Coverage matrix' (Protocol in workflow.md)
 
-## Phase 2: Runner (ACC-6.2)
+## Phase 2: Runner (ACC-6.2) [checkpoint: 903f88f]
 - [x] Task: gluon `bin/run-acceptance` — preflight, matrix, suite, inventory check, report; README usage (gluon 929795e)
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Runner' (Protocol in workflow.md)
