@@ -9,3 +9,6 @@
 - [x] Task: `stockedProduct` from the first catalog page; `CatalogPage.addToCart`, `CartPage`; cart steps 9a09763
 - [x] Task: `features/us-02-cart.feature` — add, +1, remove, empty; green against gluon-local 1d741cb
 - [x] Task: Conductor - User Manual Verification 'Phase 2: US-2 cart' (Protocol in workflow.md)
+
+## Phase: Review Fixes
+- [x] Task: Apply review suggestions f874096
