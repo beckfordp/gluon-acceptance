@@ -1,0 +1,1 @@
+Task: src/testData.ts pure helpers. Picker offset by worker index so parallel workers mutate different inventory rows.
