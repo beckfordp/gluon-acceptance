@@ -13,10 +13,10 @@ BDD acceptance suite for the Gluon platform (ADRs 0020, 0023). Re-checks the use
 
 ## Goals
 - Gherkin `.feature` files, one per story (or story group), compiled by playwright-bdd and run by Playwright's own runner
-- Every scenario tagged `@US-N.M`; coverage matrix against `user-stories.md` (covered / not covered / out of scope)
+- Every scenario tagged `@US-N.M`; coverage matrix against `user-stories.md` (covered / out of scope with a reason / missing / not built), `npm run coverage:matrix`
 - Domain-level steps over page objects; fixtures own test data and clean up after themselves
 - Async outcomes (reservation, capture, dispatch) awaited with polling assertions, never fixed sleeps
-- One-command run via gluon `bin/run-acceptance` (prechecks, run, report)
+- One-command run via gluon `bin/run-acceptance` (prechecks, coverage matrix, run, inventory check, report)
 
 ## Non-goals
 - Replacing `verify-*.sh` scripts (they stay as track-level live checks)
