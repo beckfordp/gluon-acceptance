@@ -1,0 +1,1 @@
+Task: us-18 dispatch failure feature (ACC-5.2). 4 scenarios green: problem reported while Pending/Picking/Packed -> Dispatch failed, reason shown, stock released, history Dispatch failed; empty reason rejected.
