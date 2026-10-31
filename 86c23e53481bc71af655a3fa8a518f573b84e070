@@ -1,0 +1,1 @@
+Phase 2 verification (prompt-off): scripts/verify-a5-phase2.sh — CI checks green (34 unit tests); 4 @US-18 scenarios passed; inventory byte-identical; gshop dev server gone.
