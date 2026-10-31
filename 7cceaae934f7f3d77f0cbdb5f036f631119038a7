@@ -1,0 +1,4 @@
+Tasks: Phase 2 config tests + src/config.ts (Acceptance 1)
+Summary: loadConfig(env) - GSHOP_URL (default :5173), GSHOP_DIR (default ../../frontends/gshop, non-blank), <SERVICE>_URL x8 (default port-forward 18080-18087, as gluon-performance); absolute http(s) with host, trailing slash stripped; accumulates all errors. viteEnv -> VITE_<NAME>_SERVICE_URL. configFromEnv boundary throws listing all. 9 tests (red first: module missing); coverage 100% lines/funcs, 96% branches (type-narrowing fallback). Placeholder test removed.
+Files: src/config.ts, tests/unit/config.test.ts, tests/unit/placeholder.test.ts (deleted)
+Why: Playwright webServer env (Phase 3) and API fixtures (Acceptance 2) need validated URLs.
