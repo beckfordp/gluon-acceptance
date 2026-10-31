@@ -1,9 +1,9 @@
 # Plan — Acceptance 4: Account and checkout
 
-## Phase 1: Account (ACC-4.1)
+## Phase 1: Account (ACC-4.1) [checkpoint: 53aa87d]
 - [x] Task: page objects `CheckoutPage`, `AuthDialog`; checkout + account steps; UI sign-ups tracked for cleanup d616e1a
 - [x] Task: `features/us-16-account.feature` — sign up, sign in/out, wrong password, duplicate email, mismatched passwords 954d515
-- [ ] Task: Conductor - User Manual Verification 'Phase 1: Account' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 1: Account' (Protocol in workflow.md)
 
 ## Phase 2: Checkout happy path (ACC-4.2)
 - [ ] Task: `ConfirmationPage`, `orders.record`, stock snapshot on `stockedProduct`; checkout steps
