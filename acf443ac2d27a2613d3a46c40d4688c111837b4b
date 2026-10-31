@@ -1,0 +1,1 @@
+Phase 2 verification: scripts/verify-a4-phase2.sh (prompting off). CI checks: 33 unit tests passed, lint+typecheck ok. 3 checkout scenarios passed vs gluon-local; inventory byte-identical; gshop dev server stopped.
