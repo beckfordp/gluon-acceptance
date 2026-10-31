@@ -22,5 +22,6 @@ jobs:
       # No cluster and no browsers in CI: scenarios run locally against
       # gluon-local. No GitHub Packages token: nothing here depends on
       # beckfordp/purerest.
-      - name: lint + typecheck + unit tests
-        run: npm run lint && npm run typecheck && npm test
+      # bddgen fails on missing or ambiguous steps, without needing a browser.
+      - name: bddgen + lint + typecheck + unit tests
+        run: npx bddgen && npm run lint && npm run typecheck && npm test
