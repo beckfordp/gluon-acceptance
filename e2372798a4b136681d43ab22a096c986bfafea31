@@ -1,0 +1,1 @@
+Phase 1 verification (prompt-off): scripts/verify-a6-phase1.sh exit 0 — bddgen, lint, typecheck, 46 unit tests with coverage thresholds; coverage matrix 30 covered / 18 out of scope / 0 missing / 6 not built (US-20).
