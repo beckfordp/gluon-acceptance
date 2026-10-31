@@ -1,0 +1,4 @@
+Phase 2 verification: Config
+Automated: npm run lint && npm run typecheck && npm run test:coverage -> 9 passed, coverage 100/96.42/100/100. CI run 41201693371 green.
+Manual: defaults, accumulated errors, env keys vs gluon-performance and gshop env.ts.
+User confirmed: Yes.
