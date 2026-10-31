@@ -36,6 +36,8 @@ When('I place my order with {string} set to {string}', async ({ checkoutPage }, 
 
 When('I remove it from my cart and place my order again', async ({ checkoutPage, stockedProduct }) => {
   await checkoutPage.alert.getByRole('button', { name: `Remove ${stockedProduct.name} from cart` }).click();
+  // Removal is async; the alert clears once the cart has dropped the item.
+  await expect(checkoutPage.alert).toBeHidden();
   await checkoutPage.placeOrder();
 });
 
