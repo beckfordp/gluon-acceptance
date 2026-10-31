@@ -25,7 +25,9 @@
 - `npm run typecheck` = `tsc --noEmit`
 
 ## How gshop is served
-- Decided in ACC-1.2 (vite dev with real wiring vs deployed build) — recorded here once decided
+- *(2026-10-31, ACC-1.2)* Vite dev server from the gshop checkout (`GSHOP_DIR`, default `../../frontends/gshop`), started by Playwright `webServer` (`npm run dev --port <GSHOP_URL port> --strictPort`), reused if already running locally
+- Wired to real services via `viteEnv(config)` → `VITE_<NAME>_SERVICE_URL` (process env overrides gshop's `.env`); defaults are OrbStack cluster DNS, no port-forwards
+- Why: zero new infra; tests the current gshop source; same wiring as day-to-day gshop dev. Rejected: `vite preview` of a build (slower, no extra signal yet); deploying gshop to the cluster (new image/manifest, bigger track)
 
 ## CI
 - GitHub Actions, Node 24: `npm ci && npx bddgen && npm run lint && npm run typecheck && npm test` (unit only). No cluster, no browsers installed in CI. No GH_PACKAGES_TOKEN (no purerestlib dependency)

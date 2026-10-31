@@ -16,7 +16,8 @@ See [ADR 0020](https://github.com/beckfordp/gluon/blob/main/docs/adr/0020-playwr
 - Node 24 (`.nvmrc`: `nvm use`, or Homebrew's `node`). Playwright 1.64 needs Node ≥ 20.
 - npm 11 (ships with Node 24)
 - The Gluon platform deployed to the local OrbStack cluster (namespace `gluon-local`)
-- gshop at `../../frontends/gshop`, i.e. this repo cloned at `gluon/tests/acceptance`
+- gshop at `../../frontends/gshop`, i.e. this repo cloned at `gluon/tests/acceptance`,
+  with its npm deps installed (`npm ci` there)
 
 No GitHub Packages token is needed.
 
@@ -47,5 +48,22 @@ This is what CI runs (no cluster, no browsers). `npm run test:coverage` enforces
 
 ## Running the suite
 
-`npm run test:acceptance` runs `bddgen`, then `playwright test`. The Playwright config and
-the smoke feature land in Acceptance 1 Phases 3–4.
+```
+npm run test:acceptance
+```
+
+This runs `bddgen`, then Playwright. Playwright starts gshop's Vite dev server (or reuses
+one already on :5173), wired to the services' in-cluster DNS names, which OrbStack resolves
+on the Mac. No port-forwards are needed. Features run in Chromium.
+
+- Report: `npx playwright show-report` (each Gherkin step shown); traces kept on failure
+
+### Configuration (env vars)
+
+| Variable | Default | Meaning |
+|---|---|---|
+| `GSHOP_URL` | `http://localhost:5173` | Where gshop is served; its port is passed to Vite |
+| `GSHOP_DIR` | `../../frontends/gshop` | gshop checkout the dev server runs from |
+| `<SERVICE>_URL` (`ORDER_URL`, `PAYMENT_URL`, `INVENTORY_URL`, `USER_URL`, `CATALOG_URL`, `FULFILMENT_URL`, `CART_URL`, `NOTIFICATION_URL`) | `http://<name>-service.gluon-local.svc.cluster.local:8080` | Service base URL, passed to gshop as `VITE_<NAME>_SERVICE_URL` |
+
+Invalid values fail the run at startup, listing every error.
