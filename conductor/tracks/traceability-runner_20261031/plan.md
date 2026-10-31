@@ -6,5 +6,5 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Coverage matrix' (Protocol in workflow.md)
 
 ## Phase 2: Runner (ACC-6.2)
-- [~] Task: gluon `bin/run-acceptance` — preflight, matrix, suite, inventory check, report; README usage
+- [x] Task: gluon `bin/run-acceptance` — preflight, matrix, suite, inventory check, report; README usage (gluon 929795e)
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Runner' (Protocol in workflow.md)
