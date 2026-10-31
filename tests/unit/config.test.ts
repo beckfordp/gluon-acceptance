@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { SERVICES, configFromEnv, loadConfig, viteEnv } from '../../src/config';
+import { SERVICES, configFromEnv, hostResolverRules, loadConfig, serviceHosts, viteEnv } from '../../src/config';
 
 const clusterUrl = (name: string) => `http://${name}-service.gluon-local.svc.cluster.local:8080`;
 
@@ -107,5 +107,26 @@ describe('configFromEnv', () => {
     expect(() => configFromEnv({ ORDER_URL: 'nope', GSHOP_DIR: ' ' })).toThrow(
       /ORDER_URL[\s\S]*GSHOP_DIR|GSHOP_DIR[\s\S]*ORDER_URL/,
     );
+  });
+});
+
+describe('serviceHosts', () => {
+  it('lists each service URL\'s host once', () => {
+    const config = configFromEnv({});
+    const hosts = serviceHosts(config);
+    expect(hosts).toContain('payment-service.gluon-local.svc.cluster.local');
+    expect(new Set(hosts).size).toBe(hosts.length);
+    expect(hosts).toHaveLength(SERVICES.length);
+  });
+});
+
+describe('hostResolverRules', () => {
+  it('maps each resolved host to its address', () => {
+    expect(hostResolverRules({ 'a.local': '10.0.0.1', 'b.local': '10.0.0.2' }))
+      .toEqual(['--host-resolver-rules=MAP a.local 10.0.0.1, MAP b.local 10.0.0.2']);
+  });
+
+  it('adds no flag when nothing resolved', () => {
+    expect(hostResolverRules({})).toEqual([]);
   });
 });

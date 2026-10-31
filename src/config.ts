@@ -134,6 +134,21 @@ export function viteEnv(config: Config): Record<string, string> {
   };
 }
 
+/** Each service URL's host, once. */
+export function serviceHosts(config: Config): string[] {
+  return [...new Set(SERVICES.map((s) => new URL(config.serviceUrls[s]).hostname))];
+}
+
+/**
+ * Chromium's `--host-resolver-rules` pinning each host to its address, so the
+ * browser never resolves `*.cluster.local` itself: under load its lookups
+ * (mDNS on macOS) time out as `ERR_NAME_NOT_RESOLVED`. No flag when empty.
+ */
+export function hostResolverRules(addresses: Record<string, string>): string[] {
+  const rules = Object.entries(addresses).map(([host, address]) => `MAP ${host} ${address}`);
+  return rules.length === 0 ? [] : [`--host-resolver-rules=${rules.join(', ')}`];
+}
+
 /** Config boundary: returns the config, or throws one error listing every problem. */
 export function configFromEnv(env: Env = process.env): Config {
   const result = loadConfig(env);
