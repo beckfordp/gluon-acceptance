@@ -4,8 +4,6 @@ This file tracks all major tracks for the project.
 
 ---
 
-- [x] **Track: Acceptance 1: Suite scaffold**
-  *Link: [./tracks/suite-scaffold_20261031/](./tracks/suite-scaffold_20261031/)*
 
 ---
 
