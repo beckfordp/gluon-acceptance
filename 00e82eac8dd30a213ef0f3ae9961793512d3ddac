@@ -1,0 +1,4 @@
+Task: README (Acceptance 1, Phase 1)
+Summary: purpose (BDD via playwright-bdd, @US-N.M tags), prerequisites (Node 24/npm 11, gluon-local, gshop path), setup, layout, checks (CI set), run placeholder until Phases 3-4.
+Files: README.md
+Why: needed before public remote (Task 4); links to gluon ADR 0020/0023, user-stories.md.
