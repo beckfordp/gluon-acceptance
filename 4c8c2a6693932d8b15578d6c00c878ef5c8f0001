@@ -1,0 +1,1 @@
+Regression from the A4 review merge of remove + place-again into one step: Place order could fire before gshop's async cart removal finished, re-submitting the removed item (flaked 1/36). Now waits for the stock alert to clear. sold-out outline 6/6 with --repeat-each 3; full suite 36/36.
