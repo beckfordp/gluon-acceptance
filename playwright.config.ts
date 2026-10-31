@@ -1,17 +1,17 @@
-import path from 'node:path'
-import { defineConfig, devices } from '@playwright/test'
-import { defineBddConfig } from 'playwright-bdd'
-import { configFromEnv, viteEnv } from './src/config'
+import path from 'node:path';
+import { defineConfig, devices } from '@playwright/test';
+import { defineBddConfig } from 'playwright-bdd';
+import { configFromEnv, viteEnv } from './src/config';
 
 // Fails fast, listing every bad env var.
-const config = configFromEnv()
+const config = configFromEnv();
 
 const testDir = defineBddConfig({
   features: 'features/**/*.feature',
   steps: ['steps/**/*.ts', 'src/fixtures.ts'],
-})
+});
 
-const port = new URL(config.gshopUrl).port || '80'
+const port = new URL(config.gshopUrl).port || '80';
 
 export default defineConfig({
   testDir,
@@ -36,4 +36,4 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI,
     timeout: 60_000,
   },
-})
+});

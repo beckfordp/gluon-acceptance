@@ -24,6 +24,7 @@
 
 ## Lint / format
 - ESLint 10 flat config + typescript-eslint 8.x (as gshop, newer majors)
+- `@stylistic/eslint-plugin` 5.10 for `@stylistic/semi: always` (style guide: explicit semicolons; ESLint 10 dropped core `semi`) *(2026-10-31, review fix)*
 - `npm run typecheck` = `tsc --noEmit`
 
 ## How gshop is served
