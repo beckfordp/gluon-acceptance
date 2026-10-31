@@ -11,6 +11,8 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:acceptance": "bddgen && playwright test",
+    "test:acceptance:ui": "bddgen && playwright test --ui",
+    "test:acceptance:headed": "bddgen && SLOW_MO=${SLOW_MO:-500} playwright test --headed",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"
   },

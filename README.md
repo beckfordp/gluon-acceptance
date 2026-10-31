@@ -58,6 +58,13 @@ on the Mac. No port-forwards are needed. Features run in Chromium.
 
 - Report: `npx playwright show-report` (each Gherkin step shown); traces kept on failure
 
+### Watching a run
+
+| Command | What you see |
+|---|---|
+| `npm run test:acceptance:ui` | Playwright UI mode: each scenario's Given/When/Then steps beside gshop live in the browser, with a page snapshot per step. Run, re-run and watch features from there |
+| `npm run test:acceptance:headed` | A visible Chromium window, slowed to 500 ms per action (`SLOW_MO=1000 npm run test:acceptance:headed` for slower) |
+
 ### Configuration (env vars)
 
 | Variable | Default | Meaning |

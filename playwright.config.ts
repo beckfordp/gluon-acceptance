@@ -21,6 +21,8 @@ export default defineConfig({
   use: {
     baseURL: config.gshopUrl,
     trace: 'retain-on-failure',
+    // SLOW_MO (ms) slows each browser action so a headed run can be followed.
+    launchOptions: { slowMo: Number(process.env.SLOW_MO ?? 0) },
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   // gshop's Vite dev server, wired to the real services. Process env wins
