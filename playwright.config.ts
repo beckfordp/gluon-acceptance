@@ -18,6 +18,10 @@ export default defineConfig({
   // Stops the run before the first scenario if the cluster isn't ready.
   globalSetup: './src/support/globalSetup.ts',
   retries: 0,
+  // The local cluster's services run on small CPU limits: at the default
+  // (half the cores) order-service fails its liveness probe and restarts
+  // mid-run, so gshop's fetches fail. Two workers keep it stable.
+  workers: 2,
   forbidOnly: !!process.env.CI,
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
