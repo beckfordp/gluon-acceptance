@@ -9,10 +9,7 @@ Given('I have bought it with card {string}', async (
   { catalogPage, cartPage, checkoutPage, confirmationPage, orders, stockedProduct },
   number: string,
 ) => {
-  await catalogPage.open();
-  await catalogPage.browse();
-  await catalogPage.addToCart(stockedProduct.name);
-  await expect(catalogPage.addToCartButton(stockedProduct.name)).toHaveText('Added');
+  await catalogPage.shopFor(stockedProduct.name);
   await cartPage.open();
   await cartPage.checkout();
   await checkoutPage.fillAddress(checkoutPage.shipping, TEST_ADDRESS);

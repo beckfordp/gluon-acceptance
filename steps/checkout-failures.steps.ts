@@ -7,12 +7,7 @@ import { TEST_ADDRESS, TEST_CARDS } from '../src/testData';
 Given('I am at checkout with 2 of it and 1 of another product', async (
   { catalogPage, cartPage, checkoutPage, stockedProduct, otherStockedProduct },
 ) => {
-  await catalogPage.open();
-  await catalogPage.browse();
-  for (const { name } of [stockedProduct, otherStockedProduct]) {
-    await catalogPage.addToCart(name);
-    await expect(catalogPage.addToCartButton(name)).toHaveText('Added');
-  }
+  await catalogPage.shopFor(stockedProduct.name, otherStockedProduct.name);
   await cartPage.open();
   await cartPage.increase(stockedProduct.name);
   await expect(cartPage.details(stockedProduct.name)).toContainText('qty 2');

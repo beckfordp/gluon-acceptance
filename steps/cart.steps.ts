@@ -7,10 +7,7 @@ When('I add it to my cart', async ({ catalogPage, stockedProduct }) => {
 });
 
 Given('I have added it to my cart', async ({ catalogPage, stockedProduct }) => {
-  await catalogPage.open();
-  await catalogPage.browse();
-  await catalogPage.addToCart(stockedProduct.name);
-  await expect(catalogPage.addToCartButton(stockedProduct.name)).toHaveText('Added');
+  await catalogPage.shopFor(stockedProduct.name);
 });
 
 Then('the product shows it was added', async ({ catalogPage, stockedProduct }) => {

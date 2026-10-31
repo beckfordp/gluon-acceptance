@@ -18,10 +18,7 @@ async function trackSignedInUser(page: Page, testData: TestData): Promise<void> 
 }
 
 Given('I am at checkout', async ({ catalogPage, cartPage, checkoutPage, stockedProduct }) => {
-  await catalogPage.open();
-  await catalogPage.browse();
-  await catalogPage.addToCart(stockedProduct.name);
-  await expect(catalogPage.addToCartButton(stockedProduct.name)).toHaveText('Added');
+  await catalogPage.shopFor(stockedProduct.name);
   await cartPage.open();
   await cartPage.checkout();
   await expect(checkoutPage.heading).toBeVisible();

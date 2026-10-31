@@ -1,4 +1,4 @@
-import type { Locator, Page } from '@playwright/test';
+import { expect, type Locator, type Page } from '@playwright/test';
 
 /** gshop's Catalog screen: the landing view, a grid of product cards. */
 export class CatalogPage {
@@ -32,6 +32,16 @@ export class CatalogPage {
 
   async addToCart(name: string): Promise<void> {
     await this.card(name).getByRole('button', { name: 'Add to cart' }).click();
+  }
+
+  /** Setup for later steps: opens the shop and adds each product, waiting for gshop to confirm it. */
+  async shopFor(...names: string[]): Promise<void> {
+    await this.open();
+    await this.browse();
+    for (const name of names) {
+      await this.addToCart(name);
+      await expect(this.addToCartButton(name)).toHaveText('Added');
+    }
   }
 
   async loadMore(): Promise<void> {

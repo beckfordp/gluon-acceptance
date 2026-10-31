@@ -3,7 +3,7 @@ Feature: Browse catalog (US-1)
 
   Background:
     Given I open the shop
-    When I browse the catalog
+    And I browse the catalog
 
   @US-1.1 @smoke
   Scenario: The catalog shows products from the catalog service
