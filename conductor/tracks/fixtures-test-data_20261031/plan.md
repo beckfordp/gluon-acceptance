@@ -1,7 +1,7 @@
 # Plan — Acceptance 2: Fixtures and test data
 
 ## Phase 1: Pure helpers and config
-- [ ] Task: config — `KAFKA_CONNECT_URL`, `viteEnv` pins mock flags off (tests first)
+- [x] Task: config — `KAFKA_CONNECT_URL`, `viteEnv` pins mock flags off (tests first) a067a90
 - [ ] Task: `src/testData.ts` — throwaway email, test cards/address, stocked-product picker (tests first)
 - [ ] Task: `src/precheck.ts` — evaluate readiness results into one message (tests first)
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Pure helpers and config' (Protocol in workflow.md)
