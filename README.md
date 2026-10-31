@@ -47,5 +47,5 @@ This is what CI runs (no cluster, no browsers). `npm run test:coverage` enforces
 
 ## Running the suite
 
-`npm run test:acceptance` runs `bddgen`, then `playwright test`. Port-forwards and
+`npm run test:acceptance` runs `bddgen`, then `playwright test`. The Playwright config and
 the smoke feature land in Acceptance 1 Phases 3–4.

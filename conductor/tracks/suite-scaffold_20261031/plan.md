@@ -13,7 +13,7 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Config' (Protocol in workflow.md)
 
 ## Phase 3: Serving gshop (ACC-1.2)
-- [ ] Task: `scripts/port-forward.sh up|down` — 8 services from gluon-local, wait for each port, logs/pids under `target/port-forward/` (no tail pipes, stdin detached)
+- [x] Task: service URLs default to OrbStack cluster DNS (`http://<svc>.gluon-local.svc.cluster.local:8080`, as gshop's `.env`); no port-forward script (deviation 2026-10-31, see spec FR3) 0690470
 - [ ] Task: `playwright.config.ts` — `defineBddConfig` (features/steps → `.features-gen/`), Chromium project, `baseURL` from config, `webServer` = `npm run dev` in `GSHOP_DIR` with `viteEnv`, `reuseExistingServer: !CI`, `trace: 'retain-on-failure'`, HTML report; add `bddgen` step to CI (deferred from Phase 1)
 - [ ] Task: record the serving decision in `tech-stack.md` (dated note); README run instructions
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Serving gshop' (Protocol in workflow.md)
@@ -21,5 +21,5 @@
 ## Phase 4: Smoke feature (ACC-1.3)
 - [ ] Task: `features/us-01-browse-catalog.feature` (`@US-1.1 @smoke`) — `bddgen` fails listing the 3 missing steps (red)
 - [ ] Task: `src/pages/CatalogPage.ts` (role/label locators), `src/fixtures.ts` (`test.extend` with `catalogPage`), `steps/catalog.steps.ts` via `createBdd(test)` — `bddgen` green
-- [ ] Task: with port-forwards up, `npm run test:acceptance` green against gluon-local; HTML report shows Gherkin steps; deliberately break the Then step → readable step-level failure, then revert
+- [ ] Task: `npm run test:acceptance` green against gluon-local; HTML report shows Gherkin steps; deliberately break the Then step → readable step-level failure, then revert
 - [ ] Task: Conductor - User Manual Verification 'Phase 4: Smoke feature' (Protocol in workflow.md)

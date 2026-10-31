@@ -17,7 +17,8 @@
 - `playwright.config.ts` — `baseURL` from env, retries 0 locally, `trace: 'retain-on-failure'`
 
 ## Config
-- Env vars via a small typed config module: `GSHOP_URL` (+ service API URLs for fixtures from Acceptance 2); invalid values fail fast
+- Env vars via a small typed config module (`src/config.ts`): `GSHOP_URL`, `GSHOP_DIR`, `<SERVICE>_URL`; invalid values fail fast, listing every error
+- Service URLs default to OrbStack in-cluster DNS (`http://<svc>.gluon-local.svc.cluster.local:8080`), resolvable from the Mac host; no port-forwards *(2026-10-31: replaces planned port-forward script)*
 
 ## Lint / format
 - ESLint 10 flat config + typescript-eslint 8.x (as gshop, newer majors)
