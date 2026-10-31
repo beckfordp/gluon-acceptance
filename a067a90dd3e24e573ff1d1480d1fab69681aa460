@@ -1,0 +1,1 @@
+Task: config KAFKA_CONNECT_URL + viteEnv mock flags off. Files: src/config.ts, tests/unit/config.test.ts. Why: precheck needs Connect; suite must hit real checkout/auth.
