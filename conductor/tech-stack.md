@@ -13,8 +13,10 @@
 ## Layout
 - `features/` — Gherkin, `@US-N.M` tags
 - `steps/` — step definitions (thin)
-- `src/` — fixtures (`test` extension), page objects, API helpers, config (pure, unit-tested)
-- `playwright.config.ts` — `baseURL` from env, retries 0 locally, `trace: 'retain-on-failure'`
+- `src/` — `fixtures.ts` (`test.extend` + `createBdd(test)`), `pages/` (page objects), `api/` (service API helpers), `config.ts` (pure, unit-tested; glue excluded from coverage, exercised by scenarios)
+- `scripts/verify-phase*.sh` — scripted phase verification
+- `playwright.config.ts` — `baseURL` from env, retries 0, `trace: 'retain-on-failure'`, `SLOW_MO` → `launchOptions.slowMo`; playwright-bdd `steps` glob includes `src/fixtures.ts`
+- Watching runs: `npm run test:acceptance:ui` (UI mode, steps beside live gshop), `npm run test:acceptance:headed` (visible Chromium, `SLOW_MO` default 500 ms)
 
 ## Config
 - Env vars via a small typed config module (`src/config.ts`): `GSHOP_URL`, `GSHOP_DIR`, `<SERVICE>_URL`; invalid values fail fast, listing every error
