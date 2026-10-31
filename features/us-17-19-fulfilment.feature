@@ -23,3 +23,9 @@ Feature: Fulfilment and capture (US-17, US-19)
     Given I have bought it with card "4242 4242 4242 4242"
     When the operator picks, packs and dispatches my order
     Then my order history eventually shows status "Confirmed"
+
+  @US-19.1 @US-19.3 @US-19.5
+  Scenario: A card declined at capture leaves my order with payment failed
+    Given I have bought it with card "5555 5555 5555 4444"
+    When the operator picks, packs and dispatches my order
+    Then my order history eventually shows status "Payment failed"
