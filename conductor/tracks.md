@@ -4,11 +4,6 @@ This file tracks all major tracks for the project.
 
 ---
 
-- [x] **Track: Acceptance 5: Fulfilment and capture**
-  *Link: [./tracks/fulfilment-capture_20261031/](./tracks/fulfilment-capture_20261031/)*
-
----
-
 ## Backlog
 
 Title-only placeholders for future tracks — not yet detailed (no spec/plan, no linked
