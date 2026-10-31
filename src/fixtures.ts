@@ -4,8 +4,10 @@ import { catalogProducts } from './api/catalog';
 import { allStock } from './api/inventory';
 import { signUp } from './api/users';
 import { type Config, configFromEnv } from './config';
+import { AuthDialog } from './pages/AuthDialog';
 import { CartPage } from './pages/CartPage';
 import { CatalogPage } from './pages/CatalogPage';
+import { CheckoutPage } from './pages/CheckoutPage';
 import { TestData } from './support/testData';
 import {
   type Product,
@@ -37,10 +39,19 @@ export interface Orders {
   place: (options?: { card?: TestCard; quantity?: number }) => Promise<Order>
 }
 
+/** Values one step leaves for a later one in the same scenario. */
+export interface Scenario {
+  /** The email the shopper signed up or in with. */
+  email?: string
+}
+
 interface Fixtures {
   config: Config
+  scenario: Scenario
   catalogPage: CatalogPage
   cartPage: CartPage
+  checkoutPage: CheckoutPage
+  authDialog: AuthDialog
   testData: TestData
   shopper: Shopper
   registeredCustomer: RegisteredCustomer
@@ -54,6 +65,10 @@ export const test = base.extend<Fixtures>({
   config: async ({}, use) => use(configFromEnv()),
   catalogPage: async ({ page }, use) => use(new CatalogPage(page)),
   cartPage: async ({ page }, use) => use(new CartPage(page)),
+  checkoutPage: async ({ page }, use) => use(new CheckoutPage(page)),
+  authDialog: async ({ page }, use) => use(new AuthDialog(page)),
+  // eslint-disable-next-line no-empty-pattern -- Playwright requires the destructuring
+  scenario: async ({}, use) => use({}),
 
   testData: [
     async ({ request, config }, use) => {
