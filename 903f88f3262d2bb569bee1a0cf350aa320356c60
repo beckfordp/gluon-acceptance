@@ -1,0 +1,1 @@
+Phase 2 verification (prompt-off): scripts/verify-a6-phase2.sh exit 0 — gluon bin/run-acceptance --no-open: coverage matrix 30/18/0/6, 36 scenarios passed, inventory unchanged. Also checked: --help exits 2, --grep @smoke exit 0, --grep with no match exits 1 (status passed through).
