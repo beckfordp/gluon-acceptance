@@ -1,0 +1,1 @@
+Task: capture-decline scenario (ACC-5.3). Card 5555 5555 5555 4444 authorizes but declines at capture (payment-service simulator tok_mastercard_4444); after dispatch, history shows Payment failed. Reservation kept (manual reconciliation); teardown restores the inventory snapshot.
