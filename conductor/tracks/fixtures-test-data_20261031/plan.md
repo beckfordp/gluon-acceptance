@@ -8,6 +8,6 @@
 
 ## Phase 2: API helpers, fixtures, cleanup, precheck (ACC-2.1–2.3)
 - [x] Task: `src/api/` — users, inventory, orders, fulfilment, connect (shape-checked) 308b024
-- [ ] Task: `src/support/testData.ts` cleanup + `src/support/globalSetup.ts` precheck; fixtures `shopper`, `registeredCustomer`, `stockedProduct`, `testData`, `orders`
+- [x] Task: `src/support/testData.ts` cleanup + `src/support/globalSetup.ts` precheck; fixtures `shopper`, `registeredCustomer`, `stockedProduct`, `testData`, `orders` 0bc6352
 - [ ] Task: shared steps + `@support` feature exercising them; run green against gluon-local
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: API helpers, fixtures, cleanup, precheck' (Protocol in workflow.md)
