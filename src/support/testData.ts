@@ -51,8 +51,10 @@ export class TestData {
     };
 
     for (const customerId of this.customers) {
-      const orders = await ordersFor(this.request, this.config.serviceUrls.order, customerId);
-      for (const order of orders) await attempt(`order ${order.id}`, () => this.removeOrder(order.id));
+      await attempt(`orders of ${customerId}`, async () => {
+        const orders = await ordersFor(this.request, this.config.serviceUrls.order, customerId);
+        for (const order of orders) await attempt(`order ${order.id}`, () => this.removeOrder(order.id));
+      });
     }
     for (const row of this.snapshots.values()) await attempt(`stock ${row.sku}`, () => this.restore(row));
 

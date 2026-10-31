@@ -13,13 +13,14 @@
 ## Layout
 - `features/` — Gherkin, `@US-N.M` tags
 - `steps/` — step definitions (thin)
-- `src/` — `fixtures.ts` (`test.extend` + `createBdd(test)`), `pages/` (page objects), `api/` (service API helpers), `config.ts` (pure, unit-tested; glue excluded from coverage, exercised by scenarios)
+- `src/` — `fixtures.ts` (`test.extend` + `createBdd(test)`), `pages/` (page objects), `api/` (shape-checked service API helpers), `support/` (test-data cleanup, `globalSetup` precheck), pure `config.ts`/`testData.ts`/`precheck.ts`/`poll.ts` (unit-tested; glue excluded from coverage, exercised by scenarios)
+- Test data *(2026-10-31, ACC-2)*: fixtures `shopper` (auto; pins `gshop:customerId`), `registeredCustomer`, `stockedProduct` (inventory snapshotted, picked by `parallelIndex`), `orders`, `testData` (auto teardown: fail open fulfilment task, wait terminal, delete order, restore stock until stable). Waits are `pollUntil` with deadlines, never fixed sleeps
 - `scripts/verify-phase*.sh` — scripted phase verification
 - `playwright.config.ts` — `baseURL` from env, retries 0, `trace: 'retain-on-failure'`, `SLOW_MO` → `launchOptions.slowMo`; playwright-bdd `steps` glob includes `src/fixtures.ts`
 - Watching runs: `npm run test:acceptance:ui` (UI mode, steps beside live gshop), `npm run test:acceptance:headed` (visible Chromium, `SLOW_MO` default 500 ms)
 
 ## Config
-- Env vars via a small typed config module (`src/config.ts`): `GSHOP_URL`, `GSHOP_DIR`, `<SERVICE>_URL`; invalid values fail fast, listing every error
+- Env vars via a small typed config module (`src/config.ts`): `GSHOP_URL`, `GSHOP_DIR`, `KAFKA_CONNECT_URL`, `<SERVICE>_URL`; invalid values fail fast, listing every error; `viteEnv` pins gshop's checkout/auth mocks off
 - Service URLs default to OrbStack in-cluster DNS (`http://<svc>.gluon-local.svc.cluster.local:8080`), resolvable from the Mac host; no port-forwards *(2026-10-31: replaces planned port-forward script)*
 
 ## Lint / format
