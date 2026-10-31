@@ -1,7 +1,7 @@
 # Plan — Acceptance 3: Browse and cart
 
 ## Phase 1: US-1 browse catalog (ACC-3.1)
-- [ ] Task: `src/format.ts` — `formatPrice` mirroring gshop (tests first)
+- [x] Task: `src/format.ts` — `formatPrice` mirroring gshop (tests first) a31a07b
 - [ ] Task: `CatalogPage` card details + load more; steps; product-details and paging scenarios
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: US-1 browse catalog' (Protocol in workflow.md)
 
