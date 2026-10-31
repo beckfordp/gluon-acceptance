@@ -4,7 +4,7 @@ This file tracks all major tracks for the project.
 
 ---
 
-- [ ] **Track: Acceptance 5: Fulfilment and capture**
+- [x] **Track: Acceptance 5: Fulfilment and capture**
   *Link: [./tracks/fulfilment-capture_20261031/](./tracks/fulfilment-capture_20261031/)*
 
 ---
