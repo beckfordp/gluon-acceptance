@@ -8,7 +8,7 @@
 ## Phase 2: Checkout happy path (ACC-4.2)
 - [x] Task: `ConfirmationPage`, `orders.record`, stock snapshot on `stockedProduct`; checkout steps 64ee169
 - [x] Task: `features/us-11-14-checkout.feature` — anonymous, billing differs, signed-in history 346a03e
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Checkout happy path' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Checkout happy path' (Protocol in workflow.md)
 
 ## Phase 3: Failure paths (ACC-4.3)
 - [ ] Task: `otherStockedProduct`, sell-out step; `features/us-14-checkout-failures.feature` outlines — decline, out of stock, validation
