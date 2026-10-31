@@ -1,19 +1,21 @@
 import { describe, expect, it } from 'vitest'
 import { SERVICES, configFromEnv, loadConfig, viteEnv } from '../../src/config'
 
+const clusterUrl = (name: string) => `http://${name}-service.gluon-local.svc.cluster.local:8080`
+
 const expectedDefaults = {
-  order: 'http://localhost:18080',
-  payment: 'http://localhost:18081',
-  inventory: 'http://localhost:18082',
-  user: 'http://localhost:18083',
-  catalog: 'http://localhost:18084',
-  fulfilment: 'http://localhost:18085',
-  cart: 'http://localhost:18086',
-  notification: 'http://localhost:18087',
+  order: clusterUrl('order'),
+  payment: clusterUrl('payment'),
+  inventory: clusterUrl('inventory'),
+  user: clusterUrl('user'),
+  catalog: clusterUrl('catalog'),
+  fulfilment: clusterUrl('fulfilment'),
+  cart: clusterUrl('cart'),
+  notification: clusterUrl('notification'),
 }
 
 describe('loadConfig', () => {
-  it('defaults gshop and every service to the port-forward map', () => {
+  it('defaults gshop locally and every service to its OrbStack cluster DNS name', () => {
     const result = loadConfig({})
     expect(result).toEqual({
       ok: true,
@@ -28,7 +30,7 @@ describe('loadConfig', () => {
   it('treats empty values as unset', () => {
     const result = loadConfig({ GSHOP_URL: '', ORDER_URL: '' })
     expect(result.ok && result.config.gshopUrl).toBe('http://localhost:5173')
-    expect(result.ok && result.config.serviceUrls.order).toBe('http://localhost:18080')
+    expect(result.ok && result.config.serviceUrls.order).toBe(clusterUrl('order'))
   })
 
   it('applies overrides and strips a trailing slash', () => {
@@ -42,7 +44,7 @@ describe('loadConfig', () => {
     expect(result.config.gshopUrl).toBe('http://gshop.test:3000')
     expect(result.config.gshopDir).toBe('/tmp/gshop')
     expect(result.config.serviceUrls.catalog).toBe('https://catalog.test')
-    expect(result.config.serviceUrls.order).toBe('http://localhost:18080')
+    expect(result.config.serviceUrls.order).toBe(clusterUrl('order'))
   })
 
   it('accumulates every invalid URL rather than stopping at the first', () => {
@@ -76,7 +78,7 @@ describe('viteEnv', () => {
     const env = viteEnv(result.config)
     expect(Object.keys(env)).toHaveLength(SERVICES.length)
     expect(env.VITE_USER_SERVICE_URL).toBe('http://user.test')
-    expect(env.VITE_FULFILMENT_SERVICE_URL).toBe('http://localhost:18085')
+    expect(env.VITE_FULFILMENT_SERVICE_URL).toBe(clusterUrl('fulfilment'))
   })
 })
 

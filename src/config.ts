@@ -1,19 +1,20 @@
 /**
- * Every Gluon service the suite (or gshop) talks to, with its default local
- * port. Ports match gluon-performance's `scripts/port-forward.sh`.
+ * Every Gluon service the suite (or gshop) talks to. Each defaults to its
+ * in-cluster DNS name, which OrbStack also resolves on the Mac host (ADR
+ * 0002), so no port-forwards are needed. Same URLs as gshop's own `.env`.
  */
 export const SERVICES = [
-  { name: 'order', port: 18080 },
-  { name: 'payment', port: 18081 },
-  { name: 'inventory', port: 18082 },
-  { name: 'user', port: 18083 },
-  { name: 'catalog', port: 18084 },
-  { name: 'fulfilment', port: 18085 },
-  { name: 'cart', port: 18086 },
-  { name: 'notification', port: 18087 },
+  'order',
+  'payment',
+  'inventory',
+  'user',
+  'catalog',
+  'fulfilment',
+  'cart',
+  'notification',
 ] as const
 
-export type Service = (typeof SERVICES)[number]['name']
+export type Service = (typeof SERVICES)[number]
 
 /** Suite configuration: where gshop runs, where its source is, and each service's base URL. */
 export interface Config {
@@ -39,6 +40,9 @@ const DEFAULT_GSHOP_URL = 'http://localhost:5173'
 const DEFAULT_GSHOP_DIR = '../../frontends/gshop'
 
 const envKey = (service: Service): string => `${service.toUpperCase()}_URL`
+
+const clusterUrl = (service: Service): string =>
+  `http://${service}-service.gluon-local.svc.cluster.local:8080`
 
 /** Unset and empty both mean "use the default". */
 const lookup = (env: Env, key: string): string | undefined => {
@@ -76,14 +80,14 @@ const parseDir = (env: Env): Parsed<string> => {
 
 /**
  * Reads the suite's config from env vars: `GSHOP_URL`, `GSHOP_DIR` and
- * `<SERVICE>_URL` per service, each defaulting to the local port-forward
- * setup. Collects every error rather than stopping at the first.
+ * `<SERVICE>_URL` per service, defaulting to a local gshop and in-cluster
+ * service DNS names. Collects every error rather than stopping at the first.
  */
 export function loadConfig(env: Env): ConfigResult {
   const gshopUrl = urlOrDefault(env, 'GSHOP_URL', DEFAULT_GSHOP_URL)
   const gshopDir = parseDir(env)
   const services = SERVICES.map(
-    (s) => [s.name, urlOrDefault(env, envKey(s.name), `http://localhost:${s.port}`)] as const,
+    (s) => [s, urlOrDefault(env, envKey(s), clusterUrl(s))] as const,
   )
 
   const errors = [gshopUrl, gshopDir, ...services.map(([, p]) => p)].flatMap((p) =>
@@ -100,7 +104,7 @@ export function loadConfig(env: Env): ConfigResult {
 /** The `VITE_<NAME>_SERVICE_URL` vars gshop reads (its `src/services/env.ts`). */
 export function viteEnv(config: Config): Record<string, string> {
   return Object.fromEntries(
-    SERVICES.map((s) => [`VITE_${s.name.toUpperCase()}_SERVICE_URL`, config.serviceUrls[s.name]]),
+    SERVICES.map((s) => [`VITE_${s.toUpperCase()}_SERVICE_URL`, config.serviceUrls[s]]),
   )
 }
 
