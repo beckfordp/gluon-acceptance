@@ -1,0 +1,1 @@
+Ad hoc (user request mid-Phase 4): npm scripts test:acceptance:ui (Playwright UI mode - Gherkin steps beside live gshop) and test:acceptance:headed (SLOW_MO default 500ms via launchOptions.slowMo); README 'Watching a run'. Verified headed run: 1 passed (11.2s at SLOW_MO=200).
