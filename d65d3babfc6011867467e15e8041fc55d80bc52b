@@ -1,0 +1,1 @@
+Task: report-problem steps (ACC-5.2). steps/fulfilment.steps.ts: operator moves task to Pending/Picking/Packed, reports a problem, failure outcome/alert assertions, stock released (expect.poll inventory back to snapshot).
