@@ -1,0 +1,3 @@
+Phase 3 verification: Serving gshop (prompting off - scripted)
+Automated: scripts/verify-phase3.sh -> PASS: bddgen/lint/typecheck/9 unit tests; Playwright config loads; ORDER_URL=nope rejected at startup; all 8 services /health/ready 200 on OrbStack cluster DNS; gshop dev server served on :5173 with viteEnv wiring, then stopped (port freed).
+Manual walkthrough skipped: .claude/prompt-off (since 2026-10-31).
