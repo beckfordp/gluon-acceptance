@@ -22,6 +22,7 @@ describe('loadConfig', () => {
       config: {
         gshopUrl: 'http://localhost:5173',
         gshopDir: '../../frontends/gshop',
+        kafkaConnectUrl: 'http://kafka-connect.gluon-local.svc.cluster.local:8083',
         serviceUrls: expectedDefaults,
       },
     });
@@ -63,6 +64,13 @@ describe('loadConfig', () => {
     expect(result.errors.map((e) => e.key)).toEqual(['GSHOP_URL']);
   });
 
+  it('overrides and validates KAFKA_CONNECT_URL', () => {
+    const ok = loadConfig({ KAFKA_CONNECT_URL: 'http://connect.test:8083/' });
+    expect(ok.ok && ok.config.kafkaConnectUrl).toBe('http://connect.test:8083');
+    const bad = loadConfig({ KAFKA_CONNECT_URL: 'connect' });
+    expect(!bad.ok && bad.errors.map((e) => e.key)).toEqual(['KAFKA_CONNECT_URL']);
+  });
+
   it('rejects a blank GSHOP_DIR', () => {
     const result = loadConfig({ GSHOP_DIR: '   ' });
     expect(result.ok).toBe(false);
@@ -76,9 +84,17 @@ describe('viteEnv', () => {
     const result = loadConfig({ USER_URL: 'http://user.test' });
     if (!result.ok) throw new Error('expected valid config');
     const env = viteEnv(result.config);
-    expect(Object.keys(env)).toHaveLength(SERVICES.length);
+    expect(Object.keys(env)).toHaveLength(SERVICES.length + 2);
     expect(env.VITE_USER_SERVICE_URL).toBe('http://user.test');
     expect(env.VITE_FULFILMENT_SERVICE_URL).toBe(clusterUrl('fulfilment'));
+  });
+
+  it('pins gshop to its real clients, never the in-browser mocks', () => {
+    const result = loadConfig({});
+    if (!result.ok) throw new Error('expected valid config');
+    const env = viteEnv(result.config);
+    expect(env.VITE_CHECKOUT_MOCK).toBe('false');
+    expect(env.VITE_AUTH_MOCK).toBe('false');
   });
 });
 

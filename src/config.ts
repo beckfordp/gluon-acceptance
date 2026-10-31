@@ -16,10 +16,11 @@ export const SERVICES = [
 
 export type Service = (typeof SERVICES)[number];
 
-/** Suite configuration: where gshop runs, where its source is, and each service's base URL. */
+/** Suite configuration: where gshop runs, where its source is, Kafka Connect's and each service's base URL. */
 export interface Config {
   gshopUrl: string
   gshopDir: string
+  kafkaConnectUrl: string
   serviceUrls: Record<Service, string>
 }
 
@@ -38,6 +39,7 @@ type Parsed<T> = { ok: true; value: T } | { ok: false; error: ConfigError };
 
 const DEFAULT_GSHOP_URL = 'http://localhost:5173';
 const DEFAULT_GSHOP_DIR = '../../frontends/gshop';
+const DEFAULT_KAFKA_CONNECT_URL = 'http://kafka-connect.gluon-local.svc.cluster.local:8083';
 
 function envKey(service: Service): string {
   return `${service.toUpperCase()}_URL`;
@@ -82,35 +84,54 @@ function parseDir(env: Env): Parsed<string> {
 }
 
 /**
- * Reads the suite's config from env vars: `GSHOP_URL`, `GSHOP_DIR` and
- * `<SERVICE>_URL` per service, defaulting to a local gshop and in-cluster
- * service DNS names. Collects every error rather than stopping at the first.
+ * Reads the suite's config from env vars: `GSHOP_URL`, `GSHOP_DIR`,
+ * `KAFKA_CONNECT_URL` and `<SERVICE>_URL` per service, defaulting to a local
+ * gshop and in-cluster DNS names. Collects every error rather than stopping at the first.
  */
 export function loadConfig(env: Env): ConfigResult {
   const gshopUrl = urlOrDefault(env, 'GSHOP_URL', DEFAULT_GSHOP_URL);
   const gshopDir = parseDir(env);
+  const kafkaConnectUrl = urlOrDefault(env, 'KAFKA_CONNECT_URL', DEFAULT_KAFKA_CONNECT_URL);
   const services = SERVICES.map(
     (s) => [s, urlOrDefault(env, envKey(s), clusterUrl(s))] as const,
   );
 
-  const errors = [gshopUrl, gshopDir, ...services.map(([, p]) => p)].flatMap((p) =>
+  const errors = [gshopUrl, gshopDir, kafkaConnectUrl, ...services.map(([, p]) => p)].flatMap((p) =>
     p.ok ? [] : [p.error],
   );
-  if (errors.length > 0 || !gshopUrl.ok || !gshopDir.ok) return { ok: false, errors };
+  if (errors.length > 0 || !gshopUrl.ok || !gshopDir.ok || !kafkaConnectUrl.ok) {
+    return { ok: false, errors };
+  }
 
   // No errors, so every entry parsed; `''` never occurs. The assertion is safe:
   // `services` maps over SERVICES, so every Service key is present.
   const serviceUrls = Object.fromEntries(
     services.map(([name, p]) => [name, p.ok ? p.value : '']),
   ) as Record<Service, string>;
-  return { ok: true, config: { gshopUrl: gshopUrl.value, gshopDir: gshopDir.value, serviceUrls } };
+  return {
+    ok: true,
+    config: {
+      gshopUrl: gshopUrl.value,
+      gshopDir: gshopDir.value,
+      kafkaConnectUrl: kafkaConnectUrl.value,
+      serviceUrls,
+    },
+  };
 }
 
-/** The `VITE_<NAME>_SERVICE_URL` vars gshop reads (its `src/services/env.ts`). */
+/**
+ * The env gshop reads (its `src/services/env.ts`): `VITE_<NAME>_SERVICE_URL`
+ * per service, plus its mock flags pinned off so checkout and auth always hit
+ * the real services.
+ */
 export function viteEnv(config: Config): Record<string, string> {
-  return Object.fromEntries(
-    SERVICES.map((s) => [`VITE_${s.toUpperCase()}_SERVICE_URL`, config.serviceUrls[s]]),
-  );
+  return {
+    ...Object.fromEntries(
+      SERVICES.map((s) => [`VITE_${s.toUpperCase()}_SERVICE_URL`, config.serviceUrls[s]]),
+    ),
+    VITE_CHECKOUT_MOCK: 'false',
+    VITE_AUTH_MOCK: 'false',
+  };
 }
 
 /** Config boundary: returns the config, or throws one error listing every problem. */
