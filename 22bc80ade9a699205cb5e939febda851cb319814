@@ -1,0 +1,5 @@
+Tasks: Phase 4 smoke feature, steps/page object, live run (Acceptance 1)
+Summary: features/us-01-browse-catalog.feature (@smoke @US-1.1); bddgen red with 3 missing steps, then green. CatalogPage (role locators), firstPageProductNames API helper, fixtures (config, catalogPage) + createBdd(test), steps/catalog.steps.ts; playwright-bdd steps glob includes src/fixtures.ts; vitest coverage excludes browser/API glue.
+Live: npm run test:acceptance -> 1 passed (5.6s) vs gluon-local; JSON report shows Given/When/Then steps; broken Then -> step-level failure naming locator + steps file line + trace; reverted.
+Precondition: catalog was empty; seeded via catalog-service scripts/seed-watches.sh (100 items) with user approval.
+Files: features/us-01-browse-catalog.feature, src/pages/CatalogPage.ts, src/api/catalog.ts, src/fixtures.ts, steps/catalog.steps.ts, playwright.config.ts, vitest.config.ts
