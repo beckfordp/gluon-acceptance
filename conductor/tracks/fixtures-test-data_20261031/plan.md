@@ -1,0 +1,13 @@
+# Plan — Acceptance 2: Fixtures and test data
+
+## Phase 1: Pure helpers and config
+- [ ] Task: config — `KAFKA_CONNECT_URL`, `viteEnv` pins mock flags off (tests first)
+- [ ] Task: `src/testData.ts` — throwaway email, test cards/address, stocked-product picker (tests first)
+- [ ] Task: `src/precheck.ts` — evaluate readiness results into one message (tests first)
+- [ ] Task: Conductor - User Manual Verification 'Phase 1: Pure helpers and config' (Protocol in workflow.md)
+
+## Phase 2: API helpers, fixtures, cleanup, precheck (ACC-2.1–2.3)
+- [ ] Task: `src/api/` — users, inventory, orders, fulfilment, connect (shape-checked)
+- [ ] Task: `src/support/testData.ts` cleanup + `src/support/globalSetup.ts` precheck; fixtures `shopper`, `registeredCustomer`, `stockedProduct`, `testData`, `orders`
+- [ ] Task: shared steps + `@support` feature exercising them; run green against gluon-local
+- [ ] Task: Conductor - User Manual Verification 'Phase 2: API helpers, fixtures, cleanup, precheck' (Protocol in workflow.md)
