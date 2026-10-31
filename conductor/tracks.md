@@ -4,7 +4,7 @@ This file tracks all major tracks for the project.
 
 ---
 
-- [~] **Track: Acceptance 4: Account and checkout**
+- [x] **Track: Acceptance 4: Account and checkout**
   *Link: [./tracks/account-checkout_20261031/](./tracks/account-checkout_20261031/)*
 
 ---
