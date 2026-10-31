@@ -1,0 +1,26 @@
+# macOS
+.DS_Store
+
+# npm
+node_modules/
+
+# playwright / playwright-bdd
+.features-gen/
+test-results/
+playwright-report/
+blob-report/
+
+# vitest
+coverage/
+
+# port-forward state/logs
+target/
+
+# local env
+.env
+
+# Structure101
+*.hsw
+
+# Claude Code local settings
+.claude/
