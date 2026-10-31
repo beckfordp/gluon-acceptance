@@ -1,0 +1,4 @@
+Task: GitHub Actions CI (Acceptance 1, Phase 1)
+Summary: CI workflow (Node from .nvmrc, npm ci, lint + typecheck + unit tests; no cluster/browsers). Public repo beckfordp/gluon-acceptance created, main + notes pushed. CI run 41200732774 green (41s).
+Files: .github/workflows/ci.yml
+Deviation: no bddgen step yet - bddgen needs playwright.config.ts (Phase 3); added in Phase 3 playwright.config task.
