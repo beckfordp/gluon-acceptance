@@ -1,15 +1,10 @@
 import { expect } from '@playwright/test';
-import { setStock, stockFor } from '../src/api/inventory';
+import { setStock } from '../src/api/inventory';
 import { ordersFor } from '../src/api/orders';
 import { Given, Then, When } from '../src/fixtures';
 import { TEST_ADDRESS, TEST_CARDS } from '../src/testData';
 
-Given('another product is in stock', async ({ otherStockedProduct, request, config }) => {
-  const row = await stockFor(request, config.serviceUrls.inventory, otherStockedProduct.sku);
-  expect(row.quantityAvailable).toBeGreaterThan(0);
-});
-
-Given('I am at checkout with 2 of it and 1 of the other', async (
+Given('I am at checkout with 2 of it and 1 of another product', async (
   { catalogPage, cartPage, checkoutPage, stockedProduct, otherStockedProduct },
 ) => {
   await catalogPage.open();
@@ -39,8 +34,9 @@ When('I place my order with {string} set to {string}', async ({ checkoutPage }, 
   await checkoutPage.placeOrder();
 });
 
-When('I remove it from my cart at checkout', async ({ checkoutPage, stockedProduct }) => {
+When('I remove it from my cart and place my order again', async ({ checkoutPage, stockedProduct }) => {
   await checkoutPage.alert.getByRole('button', { name: `Remove ${stockedProduct.name} from cart` }).click();
+  await checkoutPage.placeOrder();
 });
 
 Then('my payment is declined', async ({ checkoutPage }) => {
@@ -55,7 +51,9 @@ Then('no order was created', async ({ request, config, shopper }) => {
   expect(await ordersFor(request, config.serviceUrls.order, shopper.customerId)).toHaveLength(0);
 });
 
-Then('my order is for the other product only', async ({ confirmationPage, otherStockedProduct }) => {
+Then('my order is placed for the other product only', async ({ confirmationPage, orders, otherStockedProduct }) => {
+  await expect(confirmationPage.heading).toBeVisible();
+  await orders.record(await confirmationPage.placedOrderId());
   await expect(confirmationPage.items).toHaveCount(1);
   await expect(confirmationPage.items).toContainText(`${otherStockedProduct.name} — qty 1`);
 });

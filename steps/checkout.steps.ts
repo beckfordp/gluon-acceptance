@@ -18,6 +18,12 @@ When('I pay with card {string}', async ({ checkoutPage }, number: string) => {
   await checkoutPage.fillCard({ number, expiry: TEST_CARD_EXPIRY });
 });
 
+When('I place my order paying with card {string}', async ({ checkoutPage }, number: string) => {
+  await checkoutPage.fillAddress(checkoutPage.shipping, TEST_ADDRESS);
+  await checkoutPage.fillCard({ number, expiry: TEST_CARD_EXPIRY });
+  await checkoutPage.placeOrder();
+});
+
 When('I place my order', async ({ checkoutPage }) => {
   await checkoutPage.placeOrder();
 });
@@ -52,6 +58,7 @@ Then('its stock is reserved', async ({ request, config, stockedProduct }) => {
 Then('my order is saved to my account', async ({ page, orders, registeredCustomer }) => {
   const order = orders.latest();
   expect(order.customerId).toBe(registeredCustomer.userId);
+  await new OrderHistoryPage(page).open();
   await expect(page.getByText(`Signed in as ${registeredCustomer.email} — showing your orders`)).toBeVisible();
   await expect(new OrderHistoryPage(page).order(order.id)).toBeVisible();
 });

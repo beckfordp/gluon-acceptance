@@ -27,12 +27,6 @@ Given('I am at checkout', async ({ catalogPage, cartPage, checkoutPage, stockedP
   await expect(checkoutPage.heading).toBeVisible();
 });
 
-When('I go to checkout', async ({ cartPage, checkoutPage }) => {
-  await cartPage.open();
-  await cartPage.checkout();
-  await expect(checkoutPage.heading).toBeVisible();
-});
-
 When('I create an account with a new email', async ({ checkoutPage, authDialog, scenario, page, testData }) => {
   scenario.email = throwawayEmail();
   await checkoutPage.openAuth('Create account');
