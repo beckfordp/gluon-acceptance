@@ -3,7 +3,7 @@
 ## Phase 1: Project, CI and remote (ACC-1.1)
 - [x] Task: npm project — `package.json` (ESM, scripts), `.nvmrc` (24), `tsconfig.json` (strict), ESLint flat config, `.gitignore`; install pinned deps (@playwright/test 1.64, playwright-bdd 9.2, TS 6.0, ESLint 10, typescript-eslint 8, vitest 5 + coverage-v8); `npx playwright install chromium` b194f6d
 - [x] Task: placeholder vitest test; `npm run lint && npm run typecheck && npm test` green 1213916
-- [ ] Task: README (purpose, prerequisites, links to gluon ADRs 0020/0023, PLAN.md)
+- [x] Task: README (purpose, prerequisites, links to gluon ADRs 0020/0023, PLAN.md) 00e82ea
 - [ ] Task: GitHub Actions CI (`.github/workflows/ci.yml`, Node 24: ci, bddgen, lint, typecheck, test); create public `beckfordp/gluon-acceptance`, push; CI green
 - [ ] Task: Conductor - User Manual Verification 'Phase 1: Project, CI and remote' (Protocol in workflow.md)
 
