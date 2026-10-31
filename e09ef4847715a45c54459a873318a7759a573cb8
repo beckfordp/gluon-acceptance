@@ -1,0 +1,1 @@
+Phase 3 verification (prompt-off): scripts/verify-a5-phase3.sh — CI checks green; all 7 Acceptance 5 scenarios (US-17/18/19) passed; inventory byte-identical. Full suite (34 scenarios, workers 2) passed twice, inventory identical.
