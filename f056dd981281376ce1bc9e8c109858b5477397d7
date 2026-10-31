@@ -1,0 +1,1 @@
+Review fixes (Acceptance 1): semicolons everywhere + @stylistic/semi enforced via @stylistic/eslint-plugin 5.10.0 (tech-stack noted); catalog API helper validates response shape (isCatalogItem guard, no cast); config.ts helpers as function declarations, remaining Record assertion justified. All checks + smoke + verify-phase4 green.
