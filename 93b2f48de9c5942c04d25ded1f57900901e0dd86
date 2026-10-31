@@ -1,0 +1,1 @@
+Phase 1 verification (prompt-off): scripts/verify-a5-phase1.sh — CI checks (bddgen, lint, typecheck, 34 unit tests) green; 2 @US-17/@US-19 scenarios passed against gluon-local; inventory byte-identical before/after; gshop dev server gone.
