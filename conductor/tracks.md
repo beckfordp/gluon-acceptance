@@ -4,7 +4,7 @@ This file tracks all major tracks for the project.
 
 ---
 
-- [ ] **Track: Acceptance 6: Traceability and runner**
+- [x] **Track: Acceptance 6: Traceability and runner**
   *Link: [./tracks/traceability-runner_20261031/](./tracks/traceability-runner_20261031/)*
 
 ---
