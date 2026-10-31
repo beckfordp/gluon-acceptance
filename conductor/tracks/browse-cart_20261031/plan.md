@@ -7,5 +7,5 @@
 
 ## Phase 2: US-2 cart (ACC-3.2)
 - [x] Task: `stockedProduct` from the first catalog page; `CatalogPage.addToCart`, `CartPage`; cart steps 9a09763
-- [ ] Task: `features/us-02-cart.feature` — add, +1, remove, empty; green against gluon-local
+- [x] Task: `features/us-02-cart.feature` — add, +1, remove, empty; green against gluon-local 1d741cb
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: US-2 cart' (Protocol in workflow.md)
