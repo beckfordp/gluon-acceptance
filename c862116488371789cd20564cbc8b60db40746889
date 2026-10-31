@@ -1,0 +1,4 @@
+Task: playwright.config.ts (Acceptance 1, Phase 3)
+Summary: defineBddConfig (features/**/*.feature, steps/**/*.ts -> .features-gen, missingSteps fail-on-gen default); Chromium; list+html reporters; baseURL + trace retain-on-failure; webServer = gshop 'npm run dev --port <p> --strictPort' in GSHOP_DIR with viteEnv(config); reuseExistingServer locally. configFromEnv fails fast (verified ORDER_URL=nope). CI gains npx bddgen (exits 0 with no features).
+Files: playwright.config.ts, .github/workflows/ci.yml
+Not yet verified: webServer start (Phase 4 smoke run).
