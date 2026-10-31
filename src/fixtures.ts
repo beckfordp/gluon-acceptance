@@ -4,6 +4,7 @@ import { catalogProducts } from './api/catalog';
 import { allStock } from './api/inventory';
 import { signUp } from './api/users';
 import { type Config, configFromEnv } from './config';
+import { CartPage } from './pages/CartPage';
 import { CatalogPage } from './pages/CatalogPage';
 import { TestData } from './support/testData';
 import {
@@ -39,6 +40,7 @@ export interface Orders {
 interface Fixtures {
   config: Config
   catalogPage: CatalogPage
+  cartPage: CartPage
   testData: TestData
   shopper: Shopper
   registeredCustomer: RegisteredCustomer
@@ -51,6 +53,7 @@ export const test = base.extend<Fixtures>({
   // eslint-disable-next-line no-empty-pattern -- Playwright requires the destructuring
   config: async ({}, use) => use(configFromEnv()),
   catalogPage: async ({ page }, use) => use(new CatalogPage(page)),
+  cartPage: async ({ page }, use) => use(new CartPage(page)),
 
   testData: [
     async ({ request, config }, use) => {
@@ -82,7 +85,8 @@ export const test = base.extend<Fixtures>({
 
   stockedProduct: async ({ request, config, testData }, use, testInfo) => {
     const [catalog, stock] = await Promise.all([
-      catalogProducts(request, config.serviceUrls.catalog),
+      // gshop's first page, so the product is on screen without paging.
+      catalogProducts(request, config.serviceUrls.catalog, 20),
       allStock(request, config.serviceUrls.inventory),
     ]);
     const product = pickStockedProduct(catalog, stock, { needed: 2, offset: testInfo.parallelIndex });
