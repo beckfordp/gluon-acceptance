@@ -1,0 +1,1 @@
+Full-suite runs at default workers (5) flaked: order-service failed its liveness probe under load (4 restarts) and gshop fetches failed ('Failed to reach catalog service'). workers: 2 -> 34/34 passed twice, no restarts. tech-stack.md updated.
