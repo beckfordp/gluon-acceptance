@@ -1,4 +1,5 @@
 import { expect } from '@playwright/test';
+import { stockFor } from '../src/api/inventory';
 import { findOrder } from '../src/api/orders';
 import { Given, Then, When } from '../src/fixtures';
 import type { Orders } from '../src/fixtures';
@@ -58,12 +59,44 @@ When('the operator picks, packs and dispatches my order', async ({ fulfilmentPag
   await expect(fulfilmentPage.state(orderId)).toHaveText('Dispatched');
 });
 
+Given('the operator has moved my order to {string}', async ({ fulfilmentPage, orders }, state: string) => {
+  const orderId = lastOrderId(orders);
+  const pick = () => fulfilmentPage.startPicking(orderId);
+  const pack = () => fulfilmentPage.pack(orderId);
+  const moves: Record<string, (() => Promise<void>)[]> = { Pending: [], Picking: [pick], Packed: [pick, pack] };
+  const path = moves[state];
+  if (path === undefined) throw new Error(`Can't move an order to "${state}"`);
+  for (const move of path) await move();
+  await expect(fulfilmentPage.state(orderId)).toHaveText(state);
+});
+
+When('the operator reports a problem: {string}', async ({ fulfilmentPage, orders }, reason: string) => {
+  await fulfilmentPage.reportProblem(lastOrderId(orders), reason);
+});
+
 Then('my order shows as {string}', async ({ fulfilmentPage, orders }, state: string) => {
   await expect(fulfilmentPage.state(lastOrderId(orders))).toHaveText(state);
 });
 
 Then('it shows the carrier and tracking number', async ({ fulfilmentPage, orders }) => {
   await expect(fulfilmentPage.outcome(lastOrderId(orders))).toHaveText(/^Shipped via DHL — tracking \S+$/);
+});
+
+Then('it shows it wasn\'t dispatched because {string}', async ({ fulfilmentPage, orders }, reason: string) => {
+  await expect(fulfilmentPage.outcome(lastOrderId(orders))).toHaveText(`Not dispatched: ${reason}`);
+});
+
+Then('the operator is told {string}', async ({ fulfilmentPage }, message: string) => {
+  await expect(fulfilmentPage.alert).toHaveText(message);
+});
+
+// order-service releases the reservation on DispatchFailed, putting the row back as it was.
+Then('its stock is released', async ({ request, config, stockedProduct }) => {
+  const { sku, stock } = stockedProduct;
+  await expect.poll(async () => {
+    const { quantityAvailable, quantityReserved } = await stockFor(request, config.serviceUrls.inventory, sku);
+    return { quantityAvailable, quantityReserved };
+  }).toEqual({ quantityAvailable: stock.quantityAvailable, quantityReserved: stock.quantityReserved });
 });
 
 // order-service caches each customer's history for a TTL with no
