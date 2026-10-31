@@ -11,7 +11,9 @@ Given('a product is in stock', async ({ stockedProduct, request, config }) => {
   expect(row.quantityAvailable).toBeGreaterThan(0);
 });
 
-Given('I have placed an order for it', async ({ orders }) => {
+Given('I have placed an order for it', async ({ orders, $testInfo }) => {
   const order = await orders.place();
+  // Lets scripts check the order is gone after teardown.
+  $testInfo.annotations.push({ type: 'order', description: order.id });
   expect(order.status).toBe('authorized');
 });

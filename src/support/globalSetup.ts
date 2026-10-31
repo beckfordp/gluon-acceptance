@@ -16,7 +16,7 @@ function reason(error: unknown): string {
  */
 export default async function precheck(): Promise<void> {
   const config = configFromEnv();
-  const request = await playwrightRequest.newContext({ timeout: 5_000 });
+  const request = await playwrightRequest.newContext({ timeout: 10_000 });
   try {
     const services = await Promise.all(SERVICES.map(async (name) => {
       const url = config.serviceUrls[name];
