@@ -10,6 +10,6 @@
 - [x] Task: `features/us-11-14-checkout.feature` — anonymous, billing differs, signed-in history 346a03e
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Checkout happy path' (Protocol in workflow.md)
 
-## Phase 3: Failure paths (ACC-4.3)
+## Phase 3: Failure paths (ACC-4.3) [checkpoint: 9b1bdab]
 - [x] Task: `otherStockedProduct`, sell-out step; `features/us-14-checkout-failures.feature` outlines — decline, out of stock, validation 02816e6
 - [x] Task: Conductor - User Manual Verification 'Phase 3: Failure paths' (Protocol in workflow.md)
