@@ -19,7 +19,22 @@ export class CatalogPage {
     await this.page.getByText('Loading...', { exact: true }).waitFor({ state: 'hidden' });
   }
 
-  product(name: string): Locator {
-    return this.productNames.filter({ hasText: name });
+  /** The product's card: name, SKU, price and its add-to-cart button. */
+  card(name: string): Locator {
+    return this.page.getByRole('listitem')
+      .filter({ has: this.page.getByRole('heading', { level: 3, name, exact: true }) });
+  }
+
+  /** The card's add-to-cart button, whichever label it shows ("Add to cart", "Adding...", "Added"). */
+  addToCartButton(name: string): Locator {
+    return this.card(name).getByRole('button', { name: /^(Add to cart|Adding\.\.\.|Added)$/ });
+  }
+
+  async addToCart(name: string): Promise<void> {
+    await this.card(name).getByRole('button', { name: 'Add to cart' }).click();
+  }
+
+  async loadMore(): Promise<void> {
+    await this.page.getByRole('button', { name: 'Load more' }).click();
   }
 }
