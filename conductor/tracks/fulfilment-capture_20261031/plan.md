@@ -12,4 +12,4 @@
 
 ## Phase 3: Capture failure (ACC-5.3)
 - [x] Task: capture-decline scenario (`5555 5555 5555 4444`) → `Payment failed` in us-17-19 feature c8461ee
-- [ ] Task: Conductor - User Manual Verification 'Phase 3: Capture failure' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 3: Capture failure' (Protocol in workflow.md)
