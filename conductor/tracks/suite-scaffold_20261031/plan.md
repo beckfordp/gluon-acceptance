@@ -15,7 +15,7 @@
 ## Phase 3: Serving gshop (ACC-1.2)
 - [x] Task: service URLs default to OrbStack cluster DNS (`http://<svc>.gluon-local.svc.cluster.local:8080`, as gshop's `.env`); no port-forward script (deviation 2026-10-31, see spec FR3) 0690470
 - [x] Task: `playwright.config.ts` — `defineBddConfig` (features/steps → `.features-gen/`), Chromium project, `baseURL` from config, `webServer` = `npm run dev` in `GSHOP_DIR` with `viteEnv`, `reuseExistingServer: !CI`, `trace: 'retain-on-failure'`, HTML report; add `bddgen` step to CI (deferred from Phase 1) c862116
-- [ ] Task: record the serving decision in `tech-stack.md` (dated note); README run instructions
+- [x] Task: record the serving decision in `tech-stack.md` (dated note); README run instructions 6bbcab5
 - [ ] Task: Conductor - User Manual Verification 'Phase 3: Serving gshop' (Protocol in workflow.md)
 
 ## Phase 4: Smoke feature (ACC-1.3)
