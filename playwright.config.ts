@@ -15,6 +15,8 @@ const port = new URL(config.gshopUrl).port || '80';
 
 export default defineConfig({
   testDir,
+  // Stops the run before the first scenario if the cluster isn't ready.
+  globalSetup: './src/support/globalSetup.ts',
   retries: 0,
   forbidOnly: !!process.env.CI,
   reporter: [['list'], ['html', { open: 'never' }]],
