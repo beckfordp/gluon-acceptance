@@ -1,0 +1,1 @@
+Task: otherStockedProduct, sell-out step, us-14-checkout-failures.feature (ACC-4.3). pickStockedProduct gains exclude (unit-tested); otherStockedProduct picks from catalog end; ConfirmationPage.items; steps/checkout-failures.steps.ts; outlines: decline+retry (1), sold out 0/1 left + remove + reorder (2), validation per field rule (8). 11 passed vs gluon-local.
