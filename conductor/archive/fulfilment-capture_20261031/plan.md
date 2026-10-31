@@ -13,3 +13,6 @@
 ## Phase 3: Capture failure (ACC-5.3) [checkpoint: e09ef48]
 - [x] Task: capture-decline scenario (`5555 5555 5555 4444`) → `Payment failed` in us-17-19 feature c8461ee
 - [x] Task: Conductor - User Manual Verification 'Phase 3: Capture failure' (Protocol in workflow.md)
+
+## Phase: Review Fixes
+- [x] Task: Apply review suggestions b46e982
