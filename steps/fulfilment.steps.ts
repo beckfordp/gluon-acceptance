@@ -2,18 +2,8 @@ import { expect } from '@playwright/test';
 import { stockFor } from '../src/api/inventory';
 import { findOrder } from '../src/api/orders';
 import { Given, Then, When } from '../src/fixtures';
-import type { Orders } from '../src/fixtures';
 import { OrderHistoryPage } from '../src/pages/OrderHistoryPage';
-import { TEST_ADDRESS } from '../src/testData';
-
-/** Card expiry used throughout, as in checkout.steps.ts. */
-const EXPIRY = '12/34';
-
-function lastOrderId(orders: Orders): string {
-  const [order] = orders.placed.slice(-1);
-  if (order === undefined) throw new Error('No order placed in this scenario');
-  return order.id;
-}
+import { TEST_ADDRESS, TEST_CARD_EXPIRY } from '../src/testData';
 
 Given('I have bought it with card {string}', async (
   { catalogPage, cartPage, checkoutPage, confirmationPage, orders, stockedProduct },
@@ -26,7 +16,7 @@ Given('I have bought it with card {string}', async (
   await cartPage.open();
   await cartPage.checkout();
   await checkoutPage.fillAddress(checkoutPage.shipping, TEST_ADDRESS);
-  await checkoutPage.fillCard({ number, expiry: EXPIRY });
+  await checkoutPage.fillCard({ number, expiry: TEST_CARD_EXPIRY });
   await checkoutPage.placeOrder();
   await expect(confirmationPage.status).toHaveText('Status: Authorized');
   await orders.record(await confirmationPage.placedOrderId());
@@ -34,23 +24,23 @@ Given('I have bought it with card {string}', async (
 
 When('the operator opens order processing', async ({ fulfilmentPage, orders }) => {
   await fulfilmentPage.open();
-  await fulfilmentPage.waitForTask(lastOrderId(orders));
+  await fulfilmentPage.waitForTask(orders.latest().id);
 });
 
 When('the operator starts picking it', async ({ fulfilmentPage, orders }) => {
-  await fulfilmentPage.startPicking(lastOrderId(orders));
+  await fulfilmentPage.startPicking(orders.latest().id);
 });
 
 When('the operator packs it', async ({ fulfilmentPage, orders }) => {
-  await fulfilmentPage.pack(lastOrderId(orders));
+  await fulfilmentPage.pack(orders.latest().id);
 });
 
 When('the operator dispatches it', async ({ fulfilmentPage, orders }) => {
-  await fulfilmentPage.dispatch(lastOrderId(orders));
+  await fulfilmentPage.dispatch(orders.latest().id);
 });
 
 When('the operator picks, packs and dispatches my order', async ({ fulfilmentPage, orders }) => {
-  const orderId = lastOrderId(orders);
+  const orderId = orders.latest().id;
   await fulfilmentPage.open();
   await fulfilmentPage.waitForTask(orderId);
   await fulfilmentPage.startPicking(orderId);
@@ -60,7 +50,7 @@ When('the operator picks, packs and dispatches my order', async ({ fulfilmentPag
 });
 
 Given('the operator has moved my order to {string}', async ({ fulfilmentPage, orders }, state: string) => {
-  const orderId = lastOrderId(orders);
+  const orderId = orders.latest().id;
   const pick = () => fulfilmentPage.startPicking(orderId);
   const pack = () => fulfilmentPage.pack(orderId);
   const moves: Record<string, (() => Promise<void>)[]> = { Pending: [], Picking: [pick], Packed: [pick, pack] };
@@ -71,19 +61,19 @@ Given('the operator has moved my order to {string}', async ({ fulfilmentPage, or
 });
 
 When('the operator reports a problem: {string}', async ({ fulfilmentPage, orders }, reason: string) => {
-  await fulfilmentPage.reportProblem(lastOrderId(orders), reason);
+  await fulfilmentPage.reportProblem(orders.latest().id, reason);
 });
 
 Then('my order shows as {string}', async ({ fulfilmentPage, orders }, state: string) => {
-  await expect(fulfilmentPage.state(lastOrderId(orders))).toHaveText(state);
+  await expect(fulfilmentPage.state(orders.latest().id)).toHaveText(state);
 });
 
 Then('it shows the carrier and tracking number', async ({ fulfilmentPage, orders }) => {
-  await expect(fulfilmentPage.outcome(lastOrderId(orders))).toHaveText(/^Shipped via DHL — tracking \S+$/);
+  await expect(fulfilmentPage.outcome(orders.latest().id)).toHaveText(/^Shipped via DHL — tracking \S+$/);
 });
 
 Then('it shows it wasn\'t dispatched because {string}', async ({ fulfilmentPage, orders }, reason: string) => {
-  await expect(fulfilmentPage.outcome(lastOrderId(orders))).toHaveText(`Not dispatched: ${reason}`);
+  await expect(fulfilmentPage.outcome(orders.latest().id)).toHaveText(`Not dispatched: ${reason}`);
 });
 
 Then('the operator is told {string}', async ({ fulfilmentPage }, message: string) => {
@@ -103,7 +93,7 @@ Then('its stock is released', async ({ request, config, stockedProduct }) => {
 // invalidation (US-8.1), so opening it before the async outcome lands would
 // pin the stale status. Wait for the order itself (uncached), then open it.
 Then('my order history eventually shows status {string}', async ({ page, request, config, orders }, status: string) => {
-  const orderId = lastOrderId(orders);
+  const orderId = orders.latest().id;
   await expect.poll(
     async () => (await findOrder(request, config.serviceUrls.order, orderId))?.status,
     { message: `order ${orderId} to reach "${status}"`, timeout: 30_000 },

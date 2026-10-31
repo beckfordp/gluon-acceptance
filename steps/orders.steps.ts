@@ -8,7 +8,5 @@ When('I open my order history', async ({ page }) => {
 
 Then('I see my order with status {string}', async ({ page, orders }, status: string) => {
   const history = new OrderHistoryPage(page);
-  const [order] = orders.placed.slice(-1);
-  if (order === undefined) throw new Error('No order placed in this scenario');
-  await expect(history.status(order.id)).toHaveText(`Status: ${status}`);
+  await expect(history.status(orders.latest().id)).toHaveText(`Status: ${status}`);
 });

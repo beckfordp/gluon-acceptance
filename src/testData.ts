@@ -9,10 +9,13 @@ export interface TestCard {
  * declined at authorize (insufficient funds), one authorizes but is declined
  * at capture (so the order ends `payment_failed` after dispatch).
  */
+/** Expiry for every test card; validation scenarios type their own. */
+export const TEST_CARD_EXPIRY = '12/34';
+
 export const TEST_CARDS = {
-  approve: { number: '4242 4242 4242 4242', expiry: '12/34' },
-  declineAtAuthorize: { number: '4000 0000 0000 0002', expiry: '12/34' },
-  declineAtCapture: { number: '5555 5555 5555 4444', expiry: '12/34' },
+  approve: { number: '4242 4242 4242 4242', expiry: TEST_CARD_EXPIRY },
+  declineAtAuthorize: { number: '4000 0000 0000 0002', expiry: TEST_CARD_EXPIRY },
+  declineAtCapture: { number: '5555 5555 5555 4444', expiry: TEST_CARD_EXPIRY },
 } as const satisfies Record<string, TestCard>;
 
 export const TEST_ADDRESS = {

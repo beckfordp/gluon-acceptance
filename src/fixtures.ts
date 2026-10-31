@@ -47,6 +47,8 @@ export interface Orders {
   place: (options?: { card?: TestCard; quantity?: number }) => Promise<Order>
   /** Adds an order placed through the UI, fetched from order-service. */
   record: (orderId: string) => Promise<Order>
+  /** The order placed most recently in this scenario; throws if none was. */
+  latest: () => Order
 }
 
 /** Values one step leaves for a later one in the same scenario. */
@@ -161,7 +163,12 @@ export const test = base.extend<Fixtures>({
       placed.push(order);
       return order;
     };
-    await use({ placed, place, record });
+    const latest: Orders['latest'] = () => {
+      const order = placed.at(-1);
+      if (order === undefined) throw new Error('No order placed in this scenario');
+      return order;
+    };
+    await use({ placed, place, record, latest });
   },
 });
 

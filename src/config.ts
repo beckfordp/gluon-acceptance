@@ -142,7 +142,7 @@ export function serviceHosts(config: Config): string[] {
 /**
  * Chromium's `--host-resolver-rules` pinning each host to its address, so the
  * browser never resolves `*.cluster.local` itself: under load its lookups
- * (mDNS on macOS) time out as `ERR_NAME_NOT_RESOLVED`. No flag when empty.
+ * intermittently time out as `ERR_NAME_NOT_RESOLVED`. No flag when empty.
  */
 export function hostResolverRules(addresses: Record<string, string>): string[] {
   const rules = Object.entries(addresses).map(([host, address]) => `MAP ${host} ${address}`);

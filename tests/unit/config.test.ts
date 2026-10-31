@@ -111,12 +111,15 @@ describe('configFromEnv', () => {
 });
 
 describe('serviceHosts', () => {
-  it('lists each service URL\'s host once', () => {
-    const config = configFromEnv({});
-    const hosts = serviceHosts(config);
+  it('lists each service URL\'s host', () => {
+    const hosts = serviceHosts(configFromEnv({}));
     expect(hosts).toContain('payment-service.gluon-local.svc.cluster.local');
-    expect(new Set(hosts).size).toBe(hosts.length);
     expect(hosts).toHaveLength(SERVICES.length);
+  });
+
+  it('lists a host shared by several services once', () => {
+    const shared = Object.fromEntries(SERVICES.map((s) => [`${s.toUpperCase()}_URL`, `http://localhost:${8080 + SERVICES.indexOf(s)}`]));
+    expect(serviceHosts(configFromEnv(shared))).toEqual(['localhost']);
   });
 });
 

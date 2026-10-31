@@ -3,10 +3,7 @@ import { stockFor } from '../src/api/inventory';
 import { Then, When } from '../src/fixtures';
 import { formatPrice } from '../src/format';
 import { OrderHistoryPage } from '../src/pages/OrderHistoryPage';
-import { TEST_ADDRESS, TEST_BILLING_ADDRESS } from '../src/testData';
-
-/** Card expiry used throughout; validation scenarios type their own. */
-const EXPIRY = '12/34';
+import { TEST_ADDRESS, TEST_BILLING_ADDRESS, TEST_CARD_EXPIRY } from '../src/testData';
 
 When('I enter my shipping address', async ({ checkoutPage }) => {
   await checkoutPage.fillAddress(checkoutPage.shipping, TEST_ADDRESS);
@@ -18,7 +15,7 @@ When('I enter a different billing address', async ({ checkoutPage }) => {
 });
 
 When('I pay with card {string}', async ({ checkoutPage }, number: string) => {
-  await checkoutPage.fillCard({ number, expiry: EXPIRY });
+  await checkoutPage.fillCard({ number, expiry: TEST_CARD_EXPIRY });
 });
 
 When('I place my order', async ({ checkoutPage }) => {
@@ -53,8 +50,7 @@ Then('its stock is reserved', async ({ request, config, stockedProduct }) => {
 });
 
 Then('my order is saved to my account', async ({ page, orders, registeredCustomer }) => {
-  const [order] = orders.placed.slice(-1);
-  if (order === undefined) throw new Error('No order placed in this scenario');
+  const order = orders.latest();
   expect(order.customerId).toBe(registeredCustomer.userId);
   await expect(page.getByText(`Signed in as ${registeredCustomer.email} — showing your orders`)).toBeVisible();
   await expect(new OrderHistoryPage(page).order(order.id)).toBeVisible();
