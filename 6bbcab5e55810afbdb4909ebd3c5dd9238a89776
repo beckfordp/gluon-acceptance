@@ -1,0 +1,3 @@
+Task: record serving decision + README run instructions (Acceptance 1, Phase 3)
+Summary: tech-stack 'How gshop is served' = Vite dev via Playwright webServer, viteEnv wiring, cluster DNS; rationale + rejected options. README: gshop npm ci prerequisite, run command, report, env var table.
+Files: README.md, conductor/tech-stack.md
