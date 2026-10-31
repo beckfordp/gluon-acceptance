@@ -6,8 +6,8 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Pick, pack, dispatch' (Protocol in workflow.md)
 
 ## Phase 2: Dispatch failure (ACC-5.2)
-- [ ] Task: report-problem steps; stock-released step (poll inventory back to snapshot)
-- [ ] Task: `features/us-18-dispatch-failure.feature` — outline over Pending/Picking/Packed, missing reason
+- [x] Task: report-problem steps; stock-released step (poll inventory back to snapshot) d65d3ba
+- [~] Task: `features/us-18-dispatch-failure.feature` — outline over Pending/Picking/Packed, missing reason
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Dispatch failure' (Protocol in workflow.md)
 
 ## Phase 3: Capture failure (ACC-5.3)
