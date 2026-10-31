@@ -8,7 +8,7 @@ const config = configFromEnv()
 
 const testDir = defineBddConfig({
   features: 'features/**/*.feature',
-  steps: 'steps/**/*.ts',
+  steps: ['steps/**/*.ts', 'src/fixtures.ts'],
 })
 
 const port = new URL(config.gshopUrl).port || '80'

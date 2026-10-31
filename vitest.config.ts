@@ -6,6 +6,8 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       include: ['src/**/*.ts'],
+      // Browser/API glue: exercised by the scenarios, not unit tests.
+      exclude: ['src/fixtures.ts', 'src/pages/**', 'src/api/**'],
       thresholds: { lines: 80, functions: 80, branches: 80, statements: 80 },
     },
   },
