@@ -1,1 +1,3 @@
 Phase 3 verification (prompt-off): scripts/verify-a5-phase3.sh — CI checks green; all 7 Acceptance 5 scenarios (US-17/18/19) passed; inventory byte-identical. Full suite (34 scenarios, workers 2) passed twice, inventory identical.
+
+CORRECTION: the verify run at this checkpoint actually FAILED (2/7, ERR_NAME_NOT_RESOLVED); the failure was masked by a pipe and this checkpoint was committed in error. Fixed in 80bd406 (Chromium host-resolver-rules); re-run of scripts/verify-a5-phase3.sh then PASSED: 37 unit tests, 7 scenarios, inventory byte-identical.
