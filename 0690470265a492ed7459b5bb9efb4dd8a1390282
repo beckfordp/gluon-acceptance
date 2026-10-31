@@ -1,0 +1,4 @@
+Task: service URLs via OrbStack cluster DNS (Acceptance 1, Phase 3) - replaces planned port-forward.sh
+Summary: defaults http://<svc>-service.gluon-local.svc.cluster.local:8080 for all 8 services (as gshop .env); SERVICES now names only. Tests updated first (5 red), then green; coverage unchanged.
+Files: src/config.ts, tests/unit/config.test.ts (+ plan/spec/tech-stack/README in plan commit)
+Why: OrbStack resolves cluster DNS on the Mac host (curl 200), services allow CORS *, so port-forwards are unnecessary. User chose this option.
