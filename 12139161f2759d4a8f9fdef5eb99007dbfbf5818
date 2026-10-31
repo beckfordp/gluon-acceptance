@@ -1,0 +1,4 @@
+Task: placeholder vitest test (Acceptance 1, Phase 1)
+Summary: vitest config (unit tests from tests/unit only; v8 coverage on src/ with 80% thresholds) + placeholder test. lint, typecheck (fixes TS18003 from Task 1), test all green on Node 24.1.0 / npm 11.3.0.
+Files: vitest.config.ts, tests/unit/placeholder.test.ts
+Why: green baseline for CI (Task 4); placeholder removed in Phase 2.
