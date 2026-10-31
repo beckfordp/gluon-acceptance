@@ -1,0 +1,4 @@
+Phase 1 verification: Project, CI and remote
+Automated: npm ci && npm run lint && npm run typecheck && npm test -> green (1 test). CI run 41200732774 green.
+Manual: node v24, playwright 1.64.1 / bddgen 9.2.1, checks green, public repo + README + CI green, clean tree.
+User confirmed: Yes.
