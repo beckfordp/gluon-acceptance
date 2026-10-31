@@ -2,7 +2,7 @@
 
 ## Language / runtime
 - **TypeScript 6.0.x** (strict; ESM, `"type": "module"`) — latest typescript-eslint supports (<6.1); TS 7 (native) not yet supported by the linter
-- **Node 24 LTS** (`.nvmrc`; Homebrew node 24 already installed). Playwright 1.64 and playwright-bdd 9 need Node ≥20; local nvm default (18.16) is too old
+- **Node 26 LTS** (`.nvmrc`; nvm default) *(2026-10-31: was 24; 26 is Active LTS and matches purerest's AsyncAPI docs toolchain)*. `engines` ≥24; Playwright 1.64 and playwright-bdd 9 need Node ≥20
 - npm (package-lock committed)
 
 ## Test stack
@@ -16,7 +16,7 @@
 - `src/` — `fixtures.ts` (`test.extend` + `createBdd(test)`), `pages/` (page objects), `api/` (shape-checked service API helpers), `support/` (test-data cleanup, `globalSetup` precheck), pure `config.ts`/`testData.ts`/`precheck.ts`/`poll.ts` (unit-tested; glue excluded from coverage, exercised by scenarios)
 - Test data *(2026-10-31, ACC-2)*: fixtures `shopper` (auto; pins `gshop:customerId`), `registeredCustomer`, `stockedProduct` (inventory snapshotted, picked by `parallelIndex`; carries its `stock` snapshot), `otherStockedProduct` *(2026-10-31, ACC-4.3; picked from the catalog's far end)*, `orders` (`place` via API, `record` for UI-placed orders), `testData` (auto teardown: fail open fulfilment task, wait terminal, delete order, restore stock until stable). Waits are `pollUntil`, `expect.poll` or `toPass` with deadlines, never fixed sleeps. Order History is cached by order-service (60 s TTL, no invalidation): poll the order API to the expected status before opening it *(2026-10-31, ACC-5)*
 - `scripts/verify-phase*.sh` — scripted phase verification
-- `scripts/coverage-matrix.ts` — run by Node 24's built-in type stripping (no tsx/ts-node), so its imports carry `.ts` (`allowImportingTsExtensions`); logic in pure `src/coverage.ts`, out-of-scope list in `src/outOfScope.ts` *(2026-10-31, ACC-6.1)*
+- `scripts/coverage-matrix.ts` — run by Node's built-in type stripping (no tsx/ts-node), so its imports carry `.ts` (`allowImportingTsExtensions`); logic in pure `src/coverage.ts`, out-of-scope list in `src/outOfScope.ts` *(2026-10-31, ACC-6.1)*
 - `playwright.config.ts` — `baseURL` from env, retries 0, `workers: 2` *(2026-10-31, ACC-5: more workers overload the local cluster; order-service fails its liveness probe and restarts)*, Chromium `--host-resolver-rules` pins service hosts to addresses resolved in Node *(2026-10-31, ACC-5: Chromium's own `.cluster.local` lookups time out under load as `ERR_NAME_NOT_RESOLVED`)*, `trace: 'retain-on-failure'`, `SLOW_MO` → `launchOptions.slowMo`; playwright-bdd `steps` glob includes `src/fixtures.ts`
 - Watching runs: `npm run test:acceptance:ui` (UI mode, steps beside live gshop), `npm run test:acceptance:headed` (visible Chromium, `SLOW_MO` default 500 ms)
 
@@ -35,7 +35,7 @@
 - Why: zero new infra; tests the current gshop source; same wiring as day-to-day gshop dev. Rejected: `vite preview` of a build (slower, no extra signal yet); deploying gshop to the cluster (new image/manifest, bigger track)
 
 ## CI
-- GitHub Actions, Node 24: `npm ci && npx bddgen && npm run lint && npm run typecheck && npm test` (unit only). No cluster, no browsers installed in CI. No GH_PACKAGES_TOKEN (no purerestlib dependency)
+- GitHub Actions, Node from `.nvmrc` (26): `npm ci && npx bddgen && npm run lint && npm run typecheck && npm test` (unit only). No cluster, no browsers installed in CI. No GH_PACKAGES_TOKEN (no purerestlib dependency)
 
 ## Target
 - Local: OrbStack k8s, namespace `gluon-local` (ADR 0002); runner wired into gluon `bin/run-acceptance` (ACC-6.2)

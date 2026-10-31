@@ -13,8 +13,8 @@ See [ADR 0020](https://github.com/beckfordp/gluon/blob/main/docs/adr/0020-playwr
 
 ## Prerequisites
 
-- Node 24 (`.nvmrc`: `nvm use`, or Homebrew's `node`). Playwright 1.64 needs Node ≥ 20.
-- npm 11 (ships with Node 24)
+- Node 26 LTS (`.nvmrc`: `nvm use`). `engines` allows ≥ 24; Playwright 1.64 needs ≥ 20.
+- npm 11 (ships with Node 26)
 - The Gluon platform deployed to the local OrbStack cluster (namespace `gluon-local`)
 - gshop at `../../frontends/gshop`, i.e. this repo cloned at `gluon/tests/acceptance`,
   with its npm deps installed (`npm ci` there)
