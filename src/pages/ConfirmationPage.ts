@@ -8,6 +8,8 @@ export class ConfirmationPage {
   readonly payment: Locator;
   readonly shippingAddress: Locator;
   readonly total: Locator;
+  /** One line per ordered product: "{name} — qty {n} — {price}". */
+  readonly items: Locator;
 
   constructor(page: Page) {
     this.heading = page.getByRole('heading', { level: 1, name: 'Order placed' });
@@ -16,6 +18,7 @@ export class ConfirmationPage {
     this.payment = page.getByText('Payment authorised', { exact: true });
     this.shippingAddress = page.getByRole('region', { name: 'Shipping address' });
     this.total = page.getByText(/^Total: /);
+    this.items = page.getByRole('listitem');
   }
 
   /** The placed order's id, read off the screen. */

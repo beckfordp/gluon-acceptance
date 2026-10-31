@@ -53,14 +53,15 @@ export interface StockLevel {
 /**
  * The catalog product, in catalog order, with at least `needed` available.
  * `offset` skips that many candidates (wrapping), so parallel workers, which
- * pass their index, mutate different inventory rows.
+ * pass their index, mutate different inventory rows; `exclude`d SKUs are
+ * never picked.
  */
 export function pickStockedProduct<P extends Product>(
   catalog: readonly P[],
   inventory: readonly StockLevel[],
-  { needed = 1, offset = 0 }: { needed?: number; offset?: number } = {},
+  { needed = 1, offset = 0, exclude = [] }: { needed?: number; offset?: number; exclude?: readonly string[] } = {},
 ): P | undefined {
   const available = new Map(inventory.map((row) => [row.sku, row.quantityAvailable]));
-  const candidates = catalog.filter((p) => (available.get(p.sku) ?? 0) >= needed);
+  const candidates = catalog.filter((p) => !exclude.includes(p.sku) && (available.get(p.sku) ?? 0) >= needed);
   return candidates.length === 0 ? undefined : candidates[offset % candidates.length];
 }

@@ -70,6 +70,11 @@ describe('pickStockedProduct', () => {
     expect(pickStockedProduct(catalog, inventory, { offset: 3 })).toEqual(catalog[1]);
   });
 
+  it('skips excluded SKUs, so a second product differs from the first', () => {
+    expect(pickStockedProduct(catalog, inventory, { exclude: ['b'] })).toEqual(catalog[2]);
+    expect(pickStockedProduct(catalog, inventory, { exclude: ['b'], offset: 1 })).toEqual(catalog[3]);
+  });
+
   it('ignores catalog products with no inventory row', () => {
     expect(pickStockedProduct([{ sku: 'z', name: 'Z', priceCents: 1 }, catalog[1]], inventory))
       .toEqual(catalog[1]);

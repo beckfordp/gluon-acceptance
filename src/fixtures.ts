@@ -1,3 +1,4 @@
+import type { APIRequestContext } from '@playwright/test';
 import { createBdd, test as base } from 'playwright-bdd';
 import { findOrder, type Order, placeOrder } from './api/orders';
 import { catalogProducts } from './api/catalog';
@@ -65,7 +66,26 @@ interface Fixtures {
   shopper: Shopper
   registeredCustomer: RegisteredCustomer
   stockedProduct: StockedProduct
+  otherStockedProduct: StockedProduct
   orders: Orders
+}
+
+/** Picks a product on gshop's first page with 2+ available and snapshots its stock. */
+async function stock(
+  request: APIRequestContext,
+  config: Config,
+  testData: TestData,
+  { offset, exclude = [], fromEnd = false }: { offset: number; exclude?: string[]; fromEnd?: boolean },
+): Promise<StockedProduct> {
+  const [catalog, inventory] = await Promise.all([
+    // gshop's first page, so the product is on screen without paging.
+    catalogProducts(request, config.serviceUrls.catalog, 20),
+    allStock(request, config.serviceUrls.inventory),
+  ]);
+  const ordered = fromEnd ? [...catalog].reverse() : catalog;
+  const product = pickStockedProduct(ordered, inventory, { needed: 2, offset, exclude });
+  if (product === undefined) throw new Error('No catalog product has stock: re-run seed-watches.sh');
+  return { ...product, stock: await testData.snapshotStock(product.sku) };
 }
 
 /** The suite's `test`: Playwright's, plus config, test data and page objects, injected into steps. */
@@ -109,15 +129,16 @@ export const test = base.extend<Fixtures>({
   },
 
   stockedProduct: async ({ request, config, testData }, use, testInfo) => {
-    const [catalog, inventory] = await Promise.all([
-      // gshop's first page, so the product is on screen without paging.
-      catalogProducts(request, config.serviceUrls.catalog, 20),
-      allStock(request, config.serviceUrls.inventory),
-    ]);
-    const product = pickStockedProduct(catalog, inventory, { needed: 2, offset: testInfo.parallelIndex });
-    if (product === undefined) throw new Error('No catalog product has stock: re-run seed-watches.sh');
-    const stock = await testData.snapshotStock(product.sku);
-    await use({ ...product, stock });
+    await use(await stock(request, config, testData, { offset: testInfo.parallelIndex }));
+  },
+
+  // Picked from the far end of the catalog, so it isn't another worker's `stockedProduct`.
+  otherStockedProduct: async ({ request, config, testData, stockedProduct }, use, testInfo) => {
+    await use(await stock(request, config, testData, {
+      offset: testInfo.parallelIndex,
+      exclude: [stockedProduct.sku],
+      fromEnd: true,
+    }));
   },
 
   orders: async ({ request, config, shopper, stockedProduct }, use) => {
