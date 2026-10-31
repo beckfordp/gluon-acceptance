@@ -11,3 +11,6 @@
 - [x] Task: `src/support/testData.ts` cleanup + `src/support/globalSetup.ts` precheck; fixtures `shopper`, `registeredCustomer`, `stockedProduct`, `testData`, `orders` 0bc6352
 - [x] Task: shared steps + `@support` feature exercising them; run green against gluon-local 7e248d1
 - [x] Task: Conductor - User Manual Verification 'Phase 2: API helpers, fixtures, cleanup, precheck' (Protocol in workflow.md)
+
+## Phase: Review Fixes
+- [x] Task: Apply review suggestions 71c765c
