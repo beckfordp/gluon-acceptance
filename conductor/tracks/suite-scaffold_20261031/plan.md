@@ -18,8 +18,8 @@
 - [x] Task: record the serving decision in `tech-stack.md` (dated note); README run instructions 6bbcab5
 - [x] Task: Conductor - User Manual Verification 'Phase 3: Serving gshop' (Protocol in workflow.md)
 
-## Phase 4: Smoke feature (ACC-1.3)
+## Phase 4: Smoke feature (ACC-1.3) [checkpoint: b989b81]
 - [x] Task: `features/us-01-browse-catalog.feature` (`@US-1.1 @smoke`) — `bddgen` fails listing the 3 missing steps (red) 22bc80a
 - [x] Task: `src/pages/CatalogPage.ts` (role/label locators), `src/fixtures.ts` (`test.extend` with `catalogPage`), `steps/catalog.steps.ts` via `createBdd(test)` — `bddgen` green 22bc80a
 - [x] Task: `npm run test:acceptance` green against gluon-local; HTML report shows Gherkin steps; deliberately break the Then step → readable step-level failure, then revert 22bc80a
-- [ ] Task: Conductor - User Manual Verification 'Phase 4: Smoke feature' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 4: Smoke feature' (Protocol in workflow.md)
