@@ -10,3 +10,5 @@ Title-only placeholders for future tracks — not yet detailed (no spec/plan, no
 folder), so `/conductor:implement` cannot pick these up by accident. Source of truth for
 scope: gluon `PLAN.md` "Acceptance Testing". When ready, run `/conductor:newTrack <title>`.
 
+
+- Acceptance 7: US-20 authorization expiry feature (ACC-6.3; once Checkout Journey 5 builds US-20)
