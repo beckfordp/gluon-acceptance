@@ -10,6 +10,6 @@
 - [x] Task: `features/us-18-dispatch-failure.feature` — outline over Pending/Picking/Packed, missing reason e943890
 - [x] Task: Conductor - User Manual Verification 'Phase 2: Dispatch failure' (Protocol in workflow.md)
 
-## Phase 3: Capture failure (ACC-5.3)
+## Phase 3: Capture failure (ACC-5.3) [checkpoint: e09ef48]
 - [x] Task: capture-decline scenario (`5555 5555 5555 4444`) → `Payment failed` in us-17-19 feature c8461ee
 - [x] Task: Conductor - User Manual Verification 'Phase 3: Capture failure' (Protocol in workflow.md)
