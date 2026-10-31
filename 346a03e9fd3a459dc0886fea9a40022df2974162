@@ -1,0 +1,1 @@
+Task: features/us-11-14-checkout.feature (ACC-4.2). Scenarios: anonymous checkout (Order placed, Authorized, Payment authorised, address+total, stock reserved, history Authorized), billing differs, signed-in order saved to account. 3 passed vs gluon-local.
