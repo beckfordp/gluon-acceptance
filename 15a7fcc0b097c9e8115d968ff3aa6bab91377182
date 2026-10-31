@@ -1,0 +1,1 @@
+Task: src/precheck.ts pure evaluation (services ready, 5 outbox connectors + tasks RUNNING, catalog non-empty). I/O lands in globalSetup (Phase 2).
