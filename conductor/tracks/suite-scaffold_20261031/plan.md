@@ -7,10 +7,10 @@
 - [x] Task: GitHub Actions CI (`.github/workflows/ci.yml`, Node 24: ci, bddgen, lint, typecheck, test); create public `beckfordp/gluon-acceptance`, push; CI green 1c4392d
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Project, CI and remote' (Protocol in workflow.md)
 
-## Phase 2: Config
+## Phase 2: Config [checkpoint: 287e236]
 - [x] Task: write failing tests — `loadConfig(env)`: defaults (GSHOP_URL, GSHOP_DIR, 8 service URLs on 18080–18087), overrides, accumulates every invalid-URL error; `viteEnv(config)` maps to `VITE_<NAME>_SERVICE_URL` 7cceaae
 - [x] Task: implement `src/config.ts` (pure, `Result`-style return, no throws except at the config boundary); coverage >80% 7cceaae
-- [ ] Task: Conductor - User Manual Verification 'Phase 2: Config' (Protocol in workflow.md)
+- [x] Task: Conductor - User Manual Verification 'Phase 2: Config' (Protocol in workflow.md)
 
 ## Phase 3: Serving gshop (ACC-1.2)
 - [ ] Task: `scripts/port-forward.sh up|down` — 8 services from gluon-local, wait for each port, logs/pids under `target/port-forward/` (no tail pipes, stdin detached)
