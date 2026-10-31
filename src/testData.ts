@@ -22,6 +22,14 @@ export const TEST_ADDRESS = {
   country: 'GB',
 } as const;
 
+/** A billing address that differs from `TEST_ADDRESS` in every field. */
+export const TEST_BILLING_ADDRESS = {
+  line1: '2 Billing Street',
+  city: 'Manchester',
+  postcode: 'M1 1AE',
+  country: 'IE',
+} as const;
+
 /** Meets user-service's rule (8+ characters). */
 export const TEST_PASSWORD = 'acceptance-pass-1';
 

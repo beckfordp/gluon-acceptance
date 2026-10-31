@@ -1,13 +1,14 @@
 import { createBdd, test as base } from 'playwright-bdd';
-import { type Order, placeOrder } from './api/orders';
+import { findOrder, type Order, placeOrder } from './api/orders';
 import { catalogProducts } from './api/catalog';
-import { allStock } from './api/inventory';
+import { allStock, type StockRow } from './api/inventory';
 import { signUp } from './api/users';
 import { type Config, configFromEnv } from './config';
 import { AuthDialog } from './pages/AuthDialog';
 import { CartPage } from './pages/CartPage';
 import { CatalogPage } from './pages/CatalogPage';
 import { CheckoutPage } from './pages/CheckoutPage';
+import { ConfirmationPage } from './pages/ConfirmationPage';
 import { TestData } from './support/testData';
 import {
   type Product,
@@ -32,11 +33,18 @@ export interface RegisteredCustomer {
   password: string
 }
 
+/** A product with stock, and its inventory row as it was before the scenario. */
+export interface StockedProduct extends Product {
+  stock: StockRow
+}
+
 export interface Orders {
-  /** Orders placed through the API in this scenario, oldest first. */
+  /** Orders placed in this scenario (API or UI), oldest first. */
   placed: Order[]
   /** Places an order for the stocked product as the shopper (API, like gshop's checkout). */
   place: (options?: { card?: TestCard; quantity?: number }) => Promise<Order>
+  /** Adds an order placed through the UI, fetched from order-service. */
+  record: (orderId: string) => Promise<Order>
 }
 
 /** Values one step leaves for a later one in the same scenario. */
@@ -51,11 +59,12 @@ interface Fixtures {
   catalogPage: CatalogPage
   cartPage: CartPage
   checkoutPage: CheckoutPage
+  confirmationPage: ConfirmationPage
   authDialog: AuthDialog
   testData: TestData
   shopper: Shopper
   registeredCustomer: RegisteredCustomer
-  stockedProduct: Product
+  stockedProduct: StockedProduct
   orders: Orders
 }
 
@@ -66,6 +75,7 @@ export const test = base.extend<Fixtures>({
   catalogPage: async ({ page }, use) => use(new CatalogPage(page)),
   cartPage: async ({ page }, use) => use(new CartPage(page)),
   checkoutPage: async ({ page }, use) => use(new CheckoutPage(page)),
+  confirmationPage: async ({ page }, use) => use(new ConfirmationPage(page)),
   authDialog: async ({ page }, use) => use(new AuthDialog(page)),
   // eslint-disable-next-line no-empty-pattern -- Playwright requires the destructuring
   scenario: async ({}, use) => use({}),
@@ -99,15 +109,15 @@ export const test = base.extend<Fixtures>({
   },
 
   stockedProduct: async ({ request, config, testData }, use, testInfo) => {
-    const [catalog, stock] = await Promise.all([
+    const [catalog, inventory] = await Promise.all([
       // gshop's first page, so the product is on screen without paging.
       catalogProducts(request, config.serviceUrls.catalog, 20),
       allStock(request, config.serviceUrls.inventory),
     ]);
-    const product = pickStockedProduct(catalog, stock, { needed: 2, offset: testInfo.parallelIndex });
+    const product = pickStockedProduct(catalog, inventory, { needed: 2, offset: testInfo.parallelIndex });
     if (product === undefined) throw new Error('No catalog product has stock: re-run seed-watches.sh');
-    await testData.snapshotStock(product.sku);
-    await use(product);
+    const stock = await testData.snapshotStock(product.sku);
+    await use({ ...product, stock });
   },
 
   orders: async ({ request, config, shopper, stockedProduct }, use) => {
@@ -121,7 +131,13 @@ export const test = base.extend<Fixtures>({
       placed.push(order);
       return order;
     };
-    await use({ placed, place });
+    const record: Orders['record'] = async (orderId) => {
+      const order = await findOrder(request, config.serviceUrls.order, orderId);
+      if (order === undefined) throw new Error(`Order ${orderId} not found in order-service`);
+      placed.push(order);
+      return order;
+    };
+    await use({ placed, place, record });
   },
 });
 
