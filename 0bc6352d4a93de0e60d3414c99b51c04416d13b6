@@ -1,0 +1,1 @@
+Task: TestData tracker (fail open tasks, wait terminal, delete, restore stock until stable), globalSetup precheck, fixtures shopper/registeredCustomer/stockedProduct/testData/orders, pollUntil. Verified: inventory byte-identical after @support run; ORDER_URL=localhost:1 fails fast.
