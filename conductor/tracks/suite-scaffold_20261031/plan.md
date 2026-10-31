@@ -8,8 +8,8 @@
 - [x] Task: Conductor - User Manual Verification 'Phase 1: Project, CI and remote' (Protocol in workflow.md)
 
 ## Phase 2: Config
-- [ ] Task: write failing tests — `loadConfig(env)`: defaults (GSHOP_URL, GSHOP_DIR, 8 service URLs on 18080–18087), overrides, accumulates every invalid-URL error; `viteEnv(config)` maps to `VITE_<NAME>_SERVICE_URL`
-- [ ] Task: implement `src/config.ts` (pure, `Result`-style return, no throws except at the config boundary); coverage >80%
+- [x] Task: write failing tests — `loadConfig(env)`: defaults (GSHOP_URL, GSHOP_DIR, 8 service URLs on 18080–18087), overrides, accumulates every invalid-URL error; `viteEnv(config)` maps to `VITE_<NAME>_SERVICE_URL` 7cceaae
+- [x] Task: implement `src/config.ts` (pure, `Result`-style return, no throws except at the config boundary); coverage >80% 7cceaae
 - [ ] Task: Conductor - User Manual Verification 'Phase 2: Config' (Protocol in workflow.md)
 
 ## Phase 3: Serving gshop (ACC-1.2)
