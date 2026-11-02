@@ -15,7 +15,6 @@ export const TERMINAL_ORDER_STATUSES: readonly string[] = [
   'payment_failed',
   'dispatch_failed',
   'cancelled',
-  'reservation_failed',
 ];
 
 function isOrder(value: unknown): value is Order {

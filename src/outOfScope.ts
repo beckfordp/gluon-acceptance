@@ -28,6 +28,7 @@ export const OUT_OF_SCOPE: Readonly<Record<string, string>> = {
   'US-9.3': CANCELLATION_BACKEND,
   'US-9.4': CANCELLATION_BACKEND,
   'US-9.5': CANCELLATION_BACKEND,
+  'US-9.8': 'gshop Cancel action is covered by component tests; no browser scenario yet (needs real checkout/order setup)',
   'US-9.9': EMAIL,
   'US-12.1': 'billing address is stored with the payment method server-side; gshop never shows it back',
   'US-16.3': '`UserRegistered` event: no UI effect beyond the welcome email',

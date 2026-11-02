@@ -37,14 +37,13 @@ describe('evaluatePrecheck', () => {
       connectors: [
         { name: 'order-outbox-connector', state: 'RUNNING', taskStates: ['FAILED'] },
         { name: 'payment-outbox-connector', state: 'PAUSED', taskStates: [] },
-        ...running.slice(4),
       ],
     });
     expect(problems).toEqual([
       'Debezium connector fulfilment-outbox-connector is missing; re-create connectors (bin/k8s-local-up)',
-      'Debezium connector inventory-outbox-connector is missing; re-create connectors (bin/k8s-local-up)',
       'Debezium connector order-outbox-connector is RUNNING (tasks: FAILED); re-create connectors (bin/k8s-local-up)',
       'Debezium connector payment-outbox-connector is PAUSED (tasks: none); re-create connectors (bin/k8s-local-up)',
+      'Debezium connector user-outbox-connector is missing; re-create connectors (bin/k8s-local-up)',
     ]);
   });
 

@@ -60,7 +60,7 @@ one already on :5173), wired to the services' in-cluster DNS names, which OrbSta
 on the Mac. No port-forwards are needed. Features run in Chromium.
 
 - Report: `npx playwright show-report` (each Gherkin step shown); traces kept on failure
-- Precheck: before the first scenario, every service must be ready, all five Debezium
+- Precheck: before the first scenario, every service must be ready, all four Debezium
   outbox connectors `RUNNING` and the catalog seeded; otherwise the run stops with one
   message listing each problem and its fix
 - Run one tag: `npx playwright test --grep @US-11.1`

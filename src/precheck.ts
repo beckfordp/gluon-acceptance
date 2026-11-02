@@ -1,7 +1,6 @@
 /** The Debezium outbox connectors every event flow depends on. */
 export const OUTBOX_CONNECTORS = [
   'fulfilment-outbox-connector',
-  'inventory-outbox-connector',
   'order-outbox-connector',
   'payment-outbox-connector',
   'user-outbox-connector',
