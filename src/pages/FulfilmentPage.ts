@@ -1,28 +1,28 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 
 /**
- * gshop's Order processing screen (Admin → Open order processing): one card
- * per fulfilment task, across every customer. Scenarios only ever touch their
+ * gshop's Fulfilment section (Admin → Show fulfilment): one card per
+ * fulfilment task, across every customer. Scenarios only ever touch their
  * own order's card, found by its order ID.
  */
 export class FulfilmentPage {
-  readonly heading: Locator;
+  readonly section: Locator;
   readonly alert: Locator;
 
   constructor(private readonly page: Page) {
-    this.heading = page.getByRole('heading', { level: 1, name: 'Order processing' });
-    this.alert = page.getByRole('alert');
+    this.section = page.getByRole('region', { name: 'Fulfilment' });
+    this.alert = this.section.getByRole('alert');
   }
 
   async open(): Promise<void> {
     await this.page.goto('/');
     await this.page.getByRole('link', { name: 'Admin' }).click();
-    await this.page.getByRole('button', { name: 'Open order processing' }).click();
-    await expect(this.heading).toBeVisible();
+    await this.section.getByRole('button', { name: 'Show fulfilment' }).click();
+    await expect(this.section.getByRole('tablist', { name: 'Orders by state' })).toBeVisible();
   }
 
   task(orderId: string): Locator {
-    return this.page.getByRole('listitem').filter({ hasText: orderId });
+    return this.section.getByRole('listitem').filter({ hasText: orderId });
   }
 
   /** The task's state badge: "Pending", "Picking", ..., "Dispatch failed". */
@@ -37,11 +37,15 @@ export class FulfilmentPage {
 
   /**
    * Waits for the order's task to show up. It's created async from
-   * `PaymentAuthorized`, and the screen only fetches on entry and Refresh.
+   * `PaymentAuthorized`, and the section only fetches on open and Refresh.
+   * Waits for the last Refresh to settle too: a fetch still in flight would
+   * overwrite the next action's result with the stale state.
    */
   async waitForTask(orderId: string): Promise<void> {
+    const refresh = this.section.getByRole('button', { name: 'Refresh' });
     await expect(async () => {
-      await this.page.getByRole('button', { name: 'Refresh' }).click();
+      await refresh.click();
+      await expect(refresh).toBeEnabled({ timeout: 1_000 });
       await expect(this.task(orderId)).toBeVisible({ timeout: 1_000 });
     }).toPass({ timeout: 30_000 });
   }
