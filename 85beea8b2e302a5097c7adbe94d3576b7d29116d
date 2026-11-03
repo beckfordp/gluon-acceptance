@@ -1,0 +1,1 @@
+Phase 1 — stock restore removed. Automated: npm test 47/47, lint, tsc. Live: bin/reset-data → npx playwright test (22 passed, 14 failed — all from the pre-existing ADM-9 guest-email checkout gap) → bin/check-stock-ledger OK (0 drift). Manual: prompt-off; scripted.
