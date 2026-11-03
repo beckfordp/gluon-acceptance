@@ -81,13 +81,12 @@ out-of-scope entry names a task that isn't done. Local only: CI has no gluon che
 
 Scenarios get their data from fixtures (`src/fixtures.ts`): a fresh anonymous shopper
 pinned into gshop's `localStorage`, a throwaway registered customer, a stocked product
-(its inventory row snapshotted) and API-placed orders. After each scenario, every order
-of its customers is driven to a terminal status (an open fulfilment task is failed with
-reason `acceptance cleanup`, releasing stock and voiding payment), deleted, and every
-snapshotted inventory row restored exactly. Users, carts, payment methods and failed
-fulfilment tasks have no delete endpoint and stay behind; they don't show in demo
-inventory or order history. `scripts/inventory-snapshot.sh` before and after a run
-proves inventory is unchanged.
+(with its current stock) and API-placed orders. After each scenario, every order of its
+customers is driven to a terminal status (an open fulfilment task is failed with reason
+`acceptance cleanup`, releasing stock and voiding payment) and deleted. Stock is never
+restored (TD-24: rewriting rows overwrote reservations other orders held); instead
+`bin/run-acceptance` resets every database and reseeds before the run, and afterwards
+checks each SKU's `quantityReserved` equals its active reservation-ledger lines.
 
 ### Watching a run
 
