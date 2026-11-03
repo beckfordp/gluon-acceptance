@@ -6,7 +6,7 @@ This file tracks all major tracks for the project.
 
 ## Tracks
 
-- [ ] **Track: Acceptance A — Customer cancel**
+- [x] **Track: Acceptance A — Customer cancel**
   *Link: [./tracks/customer-cancel_20261103/](./tracks/customer-cancel_20261103/)*
 
 ---
