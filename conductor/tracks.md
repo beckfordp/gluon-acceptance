@@ -6,6 +6,8 @@ This file tracks all major tracks for the project.
 
 ## Tracks
 
+- [ ] **Track: Acceptance B — Operator order console and expiry**
+  *Link: [./tracks/admin-orders_20261103/](./tracks/admin-orders_20261103/)*
 
 ---
 
