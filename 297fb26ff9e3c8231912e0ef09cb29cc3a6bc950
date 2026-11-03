@@ -1,0 +1,4 @@
+Task: setStock sends quantityAvailable only; restore compares available only (FR1–FR2), track td24-restore-available-only_20261103.
+Changes: src/api/inventory.ts setStock PUTs {quantityAvailable}; src/support/testData.ts exports sameStock comparing quantityAvailable only (reserved may differ while other orders hold stock); new tests/unit/stock.test.ts.
+Why: teardown's absolute quantityReserved PUT wiped live reservations — the confirmed TD-24 drift cause.
+Red: 3 new tests failed. Green: 49/49, lint, tsc clean, coverage 100% stmts.
