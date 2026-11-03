@@ -1,6 +1,6 @@
 # TD-24 Implementation Plan
 
-## Phase 1 — Available-only stock restore
+## Phase 1 — Available-only stock restore [checkpoint: 85beea8]
 - [x] Task: `setStock` sends `quantityAvailable` only; restore compares available only (FR1–FR2) — 297fb26
   - [x] Red: `tests/unit/stock.test.ts` — `setStock` PUT body is `{quantityAvailable}`; `sameStock` ignores `quantityReserved`. Confirm failure.
   - [x] Green: `src/api/inventory.ts` `setStock`; export `sameStock` from `src/support/testData.ts`, compare available only.

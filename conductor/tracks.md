@@ -6,7 +6,7 @@ This file tracks all major tracks for the project.
 
 ## Tracks
 
-- [~] **Track: TD-24 — stock teardown restores quantityAvailable only**
+- [x] **Track: TD-24 — stock teardown restores quantityAvailable only**
   *Link: [./tracks/td24-restore-available-only_20261103/](./tracks/td24-restore-available-only_20261103/)*
 
 ---
