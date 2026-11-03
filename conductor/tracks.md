@@ -6,7 +6,7 @@ This file tracks all major tracks for the project.
 
 ## Tracks
 
-- [ ] **Track: Fill the guest email at signed-out checkout**
+- [x] **Track: Fill the guest email at signed-out checkout**
   *Link: [./tracks/guest-email-checkout_20261103/](./tracks/guest-email-checkout_20261103/)*
 
 ---
