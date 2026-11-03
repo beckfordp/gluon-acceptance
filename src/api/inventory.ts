@@ -31,14 +31,14 @@ export async function stockFor(request: APIRequestContext, inventoryUrl: string,
   return pick(row);
 }
 
-/** `PUT /inventorys/{id}`: sets both quantities. */
+/** `PUT /inventorys/{id}`: sets `quantityAvailable`; reserved stock is owned by the reservation ledger. */
 export async function setStock(
   request: APIRequestContext,
   inventoryUrl: string,
   row: StockRow,
 ): Promise<void> {
   const response = await request.put(`${inventoryUrl}/inventorys/${row.id}`, {
-    data: { quantityAvailable: row.quantityAvailable, quantityReserved: row.quantityReserved },
+    data: { quantityAvailable: row.quantityAvailable },
   });
   await expectStatus(response, `PUT /inventorys/${row.id}`, 200, 204);
 }

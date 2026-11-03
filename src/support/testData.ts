@@ -10,14 +10,15 @@ export const CLEANUP_REASON = 'acceptance cleanup';
 /** Read this many times, `intervalMs` apart, to trust a restored row has settled. */
 const STABLE_READS = 4;
 
-function sameStock(a: StockRow, b: StockRow): boolean {
-  return a.quantityAvailable === b.quantityAvailable && a.quantityReserved === b.quantityReserved;
+/** Only `quantityAvailable` is restorable; reserved stock follows the ledger and may differ while other orders hold it. */
+export function sameStock(a: StockRow, b: StockRow): boolean {
+  return a.quantityAvailable === b.quantityAvailable;
 }
 
 /**
  * What a scenario created or changed, so teardown can put the cluster back:
  * every order of every tracked customer is driven to a terminal status and
- * deleted, then every snapshotted inventory row is restored exactly.
+ * deleted, then every snapshotted inventory row's `quantityAvailable` is restored.
  */
 export class TestData {
   private readonly customers = new Set<string>();
