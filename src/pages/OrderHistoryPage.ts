@@ -21,4 +21,15 @@ export class OrderHistoryPage {
   status(orderId: string): Locator {
     return this.order(orderId).getByText(/^Status: /);
   }
+
+  /** The order's cancel error, e.g. the `409` once it's past cancelling. */
+  alert(orderId: string): Locator {
+    return this.order(orderId).getByRole('alert');
+  }
+
+  /** Cancel order, then confirm. The button only shows while the order is `authorized`. */
+  async cancel(orderId: string): Promise<void> {
+    await this.page.getByRole('button', { name: `Cancel order ${orderId}` }).click();
+    await this.page.getByRole('button', { name: `Confirm cancel ${orderId}` }).click();
+  }
 }

@@ -4,13 +4,9 @@
  */
 const EMAIL = 'notification email: not visible in gshop; checked by the track\'s verify script';
 const RETIRED = 'walking-skeleton async path, retired by the synchronous reserve → authorize checkout (ADR 0011 amendment); no longer in service code';
-// Remove these once US-9.8's Cancel action gives gshop a cancellation journey
-// to drive.
-const NO_CANCEL_JOURNEY = 'no gshop cancellation journey yet: US-9.8 (Cancel action) is not built';
 // US-20 is system-initiated: proving it needs a payment row whose expires_at
 // is already in the past, which the suite has no way to seed through gshop.
 const EXPIRY = 'authorization expiry needs a seeded past expiresAt; covered by services/payment-service/scripts/verify-auth-expiry.sh';
-const CANCELLATION_BACKEND = 'cancellation compensation runs in payment/inventory/fulfilment; covered by verify-auth-expiry.sh until US-9.8 adds a gshop Cancel action';
 
 export const OUT_OF_SCOPE: Readonly<Record<string, string>> = {
   'US-1.2': 'catalog cache: the shopper sees the same catalog with or without it',
@@ -23,12 +19,8 @@ export const OUT_OF_SCOPE: Readonly<Record<string, string>> = {
   'US-6.2': 'superseded: authorize idempotency (TD-10) is a replay guard, not UI-observable',
   'US-6.3': RETIRED,
   'US-7.1': EMAIL,
-  'US-9.1': `${NO_CANCEL_JOURNEY} — the API itself is built`,
   'US-9.2': '`reason` on OrderCancelled: no UI effect; checked by verify-auth-expiry.sh',
-  'US-9.3': CANCELLATION_BACKEND,
-  'US-9.4': CANCELLATION_BACKEND,
-  'US-9.5': CANCELLATION_BACKEND,
-  'US-9.8': 'gshop Cancel action is covered by component tests; no browser scenario yet (needs real checkout/order setup)',
+  'US-9.3': 'payment void on cancel is internal to payment-service; gshop shows no payment state; covered by services/payment-service/scripts/verify-void.sh',
   'US-9.9': EMAIL,
   'US-12.1': 'billing address is stored with the payment method server-side; gshop never shows it back',
   'US-16.3': '`UserRegistered` event: no UI effect beyond the welcome email',
@@ -44,5 +36,4 @@ export const OUT_OF_SCOPE: Readonly<Record<string, string>> = {
   'US-20.4': EXPIRY,
   'US-20.5': EMAIL,
   'US-20.6': EXPIRY,
-  'US-21.1': NO_CANCEL_JOURNEY,
 };

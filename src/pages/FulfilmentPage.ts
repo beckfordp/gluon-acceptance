@@ -25,9 +25,9 @@ export class FulfilmentPage {
     return this.section.getByRole('listitem').filter({ hasText: orderId });
   }
 
-  /** The task's state badge: "Pending", "Picking", ..., "Dispatch failed". */
+  /** The task's state badge: "Pending", "Picking", ..., "Dispatch failed", "Cancelled". */
   state(orderId: string): Locator {
-    return this.task(orderId).getByText(/^(Pending|Picking|Packed|Dispatched|Dispatch failed)$/);
+    return this.task(orderId).getByText(/^(Pending|Picking|Packed|Dispatched|Dispatch failed|Cancelled)$/);
   }
 
   /** "Shipped via {carrier} — tracking {no}" or "Not dispatched: {reason}". */
@@ -42,12 +42,12 @@ export class FulfilmentPage {
    * overwrite the next action's result with the stale state.
    */
   async waitForTask(orderId: string): Promise<void> {
-    const refresh = this.section.getByRole('button', { name: 'Refresh' });
-    await expect(async () => {
-      await refresh.click();
-      await expect(refresh).toBeEnabled({ timeout: 1_000 });
-      await expect(this.task(orderId)).toBeVisible({ timeout: 1_000 });
-    }).toPass({ timeout: 30_000 });
+    await this.refreshUntil(() => expect(this.task(orderId)).toBeVisible({ timeout: 1_000 }));
+  }
+
+  /** Waits for the task to reach `state` after a change made elsewhere (e.g. a cancel), refreshing until it does. */
+  async waitForState(orderId: string, state: string): Promise<void> {
+    await this.refreshUntil(() => expect(this.state(orderId)).toHaveText(state, { timeout: 1_000 }));
   }
 
   async startPicking(orderId: string): Promise<void> {
@@ -69,6 +69,15 @@ export class FulfilmentPage {
     await this.click(orderId, 'Report problem');
     await this.task(orderId).getByLabel('What went wrong?').fill(reason);
     await this.click(orderId, 'Confirm failure');
+  }
+
+  private async refreshUntil(check: () => Promise<void>): Promise<void> {
+    const refresh = this.section.getByRole('button', { name: 'Refresh' });
+    await expect(async () => {
+      await refresh.click();
+      await expect(refresh).toBeEnabled({ timeout: 1_000 });
+      await check();
+    }).toPass({ timeout: 30_000 });
   }
 
   /** Each action's button only appears once the task reaches its state, and clicks wait for it. */
