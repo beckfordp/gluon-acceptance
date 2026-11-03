@@ -8,13 +8,19 @@ and ignores a sent value; the suite stops sending and comparing it.
 
 ## Functional Requirements
 - FR1: `setStock` PUTs `{quantityAvailable}` only.
-- FR2: Teardown's settle check compares `quantityAvailable` only — reserved may legitimately
-  differ while other orders hold stock, so comparing it would rewrite/loop to timeout.
+- FR2 (re-scoped 2026-11-03): no teardown stock restore at all — `TestData` no longer snapshots
+  or rewrites inventory. Each run starts from a reset + seed (gluon `bin/run-acceptance`), so
+  scenarios leave stock as they found it only up to the next reset. Fixtures read current stock
+  instead of snapshotting it. The low-stock scenario keeps `setStock` (available only) on its own
+  worker's product; `pickStockedProduct` already skips rows with < 2 available.
+- Order cleanup in teardown is kept (cheap; keeps the cluster tidy for demos).
 
 ## Acceptance Criteria
-- Unit tests cover FR1 (request body) and FR2 (comparison); `npm test`, lint, typecheck green.
-- A full acceptance run after a DB reset + seed leaves 0 drift rows (reserved = active ledger).
+- Unit test covers FR1 (request body); restore code and `sameStock` removed; `npm test`, lint,
+  typecheck green.
+- A full acceptance run via `bin/run-acceptance` (reset + seed first, ledger-invariant check
+  after) passes with 0 drift rows.
 
 ## Out of Scope
-- Resetting all databases + seeding before acceptance runs (gluon follow-up, user rule
-  2026-11-03).
+- `bin/run-acceptance` reset + seed pre-step and invariant check (gluon, done alongside).
+- Scenario-owned catalogue products (would need gshop search/paging support).
