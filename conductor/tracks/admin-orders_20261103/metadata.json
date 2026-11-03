@@ -1,7 +1,7 @@
 {
   "track_id": "admin-orders_20261103",
   "type": "feature",
-  "status": "new",
+  "status": "completed",
   "created_at": "2026-11-03T12:00:00Z",
   "updated_at": "2026-11-03T12:00:00Z",
   "description": "Acceptance B: operator order console, cancel and simulated expiry (US-24, US-25, US-22, US-20)"
