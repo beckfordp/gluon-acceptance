@@ -20,7 +20,7 @@ When('only {int} of it is left in stock', async ({ request, config, stockedProdu
 });
 
 When('I place my order with {string} set to {string}', async ({ checkoutPage }, label: string, value: string) => {
-  await checkoutPage.fillAddress(checkoutPage.shipping, TEST_ADDRESS);
+  await checkoutPage.fillShipping(TEST_ADDRESS);
   await checkoutPage.fillCard(TEST_CARDS.approve);
   const field = ['Card number', 'Expiry date'].includes(label)
     ? checkoutPage.payment.getByLabel(label, { exact: true })

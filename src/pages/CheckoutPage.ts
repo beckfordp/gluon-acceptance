@@ -1,4 +1,5 @@
 import type { Locator, Page } from '@playwright/test';
+import { throwawayEmail } from '../testData';
 
 export interface AddressValues {
   line1: string
@@ -7,10 +8,12 @@ export interface AddressValues {
   country: string
 }
 
-/** gshop's Checkout screen: account banner, shipping/billing/payment fieldsets, Place order. */
+/** gshop's Checkout screen: account banner, guest email, shipping/billing/payment fieldsets, Place order. */
 export class CheckoutPage {
   readonly heading: Locator;
   readonly account: Locator;
+  /** Shown only to signed-out shoppers (ADM-10, US-27.3). */
+  readonly guestEmail: Locator;
   readonly shipping: Locator;
   readonly billing: Locator;
   readonly payment: Locator;
@@ -23,6 +26,7 @@ export class CheckoutPage {
   constructor(private readonly page: Page) {
     this.heading = page.getByRole('heading', { level: 1, name: 'Checkout' });
     this.account = page.getByRole('region', { name: 'Account' });
+    this.guestEmail = page.getByLabel('Email for order updates');
     this.shipping = page.getByRole('group', { name: 'Shipping address' });
     this.billing = page.getByRole('group', { name: 'Billing address' });
     this.payment = page.getByRole('group', { name: 'Payment' });
@@ -42,6 +46,12 @@ export class CheckoutPage {
     await this.field(group, 'City').fill(address.city);
     await this.field(group, 'Postcode').fill(address.postcode);
     await this.field(group, 'Country').fill(address.country);
+  }
+
+  /** Fills the guest email when checkout asks for one (signed out), then the shipping address. */
+  async fillShipping(address: AddressValues): Promise<void> {
+    if (await this.guestEmail.isVisible()) await this.guestEmail.fill(throwawayEmail());
+    await this.fillAddress(this.shipping, address);
   }
 
   async fillCard(card: { number: string; expiry: string }): Promise<void> {

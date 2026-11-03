@@ -12,7 +12,7 @@ Given('I have bought it with card {string}', async (
   await catalogPage.shopFor(stockedProduct.name);
   await cartPage.open();
   await cartPage.checkout();
-  await checkoutPage.fillAddress(checkoutPage.shipping, TEST_ADDRESS);
+  await checkoutPage.fillShipping(TEST_ADDRESS);
   await checkoutPage.fillCard({ number, expiry: TEST_CARD_EXPIRY });
   await checkoutPage.placeOrder();
   await expect(confirmationPage.status).toHaveText('Status: Authorized');

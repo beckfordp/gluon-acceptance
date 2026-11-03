@@ -6,7 +6,7 @@ import { OrderHistoryPage } from '../src/pages/OrderHistoryPage';
 import { TEST_ADDRESS, TEST_BILLING_ADDRESS, TEST_CARD_EXPIRY } from '../src/testData';
 
 When('I enter my shipping address', async ({ checkoutPage }) => {
-  await checkoutPage.fillAddress(checkoutPage.shipping, TEST_ADDRESS);
+  await checkoutPage.fillShipping(TEST_ADDRESS);
 });
 
 When('I enter a different billing address', async ({ checkoutPage }) => {
@@ -19,7 +19,7 @@ When('I pay with card {string}', async ({ checkoutPage }, number: string) => {
 });
 
 When('I place my order paying with card {string}', async ({ checkoutPage }, number: string) => {
-  await checkoutPage.fillAddress(checkoutPage.shipping, TEST_ADDRESS);
+  await checkoutPage.fillShipping(TEST_ADDRESS);
   await checkoutPage.fillCard({ number, expiry: TEST_CARD_EXPIRY });
   await checkoutPage.placeOrder();
 });
