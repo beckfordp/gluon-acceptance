@@ -83,6 +83,11 @@ export class AdminConsolePage {
     return this.section.getByRole('listitem').filter({ has: this.page.getByText(subject, { exact: true }) });
   }
 
+  /** The email's status badge: "pending", "sent", "failed" or "unresolved". */
+  emailStatus(subject: string): Locator {
+    return this.email(subject).locator('.admin-console__badge');
+  }
+
   /** Clicks Refresh emails until `check` passes: emails are sent as each event lands. */
   async refreshEmailsUntil(check: () => Promise<void>): Promise<void> {
     const refresh = this.section.getByRole('button', { name: 'Refresh emails' });
