@@ -55,14 +55,18 @@ export class AdminConsolePage {
     return this.section.getByRole('button', { name: new RegExp(`^(Operator cancel|Expire authorization for) ${orderId}$`) });
   }
 
+  /** Operator cancel, then confirm; waits for the result message (navigating sooner aborts the request). */
   async operatorCancel(orderId: string): Promise<void> {
     await this.section.getByRole('button', { name: `Operator cancel ${orderId}` }).click();
     await this.section.getByRole('button', { name: `Confirm operator cancel for ${orderId}` }).click();
+    await expect(this.result).toBeVisible();
   }
 
+  /** Expire authorization now, then confirm; waits for the result message. */
   async expireAuthorization(orderId: string): Promise<void> {
     await this.section.getByRole('button', { name: `Expire authorization for ${orderId}` }).click();
     await this.section.getByRole('button', { name: `Confirm authorization expiry for ${orderId}` }).click();
+    await expect(this.result).toBeVisible();
   }
 
   /** Opens the Customers tab and the customer's record, by its label (account email or "Guest {email}"). */

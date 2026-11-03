@@ -1,4 +1,4 @@
-import type { Locator, Page } from '@playwright/test';
+import { expect, type Locator, type Page } from '@playwright/test';
 
 /** gshop's Order History screen: one card per order for the current identity. */
 export class OrderHistoryPage {
@@ -27,9 +27,14 @@ export class OrderHistoryPage {
     return this.order(orderId).getByRole('alert');
   }
 
-  /** Cancel order, then confirm. The button only shows while the order is `authorized`. */
+  /**
+   * Cancel order, then confirm, and waits for the outcome: `Cancelled`, or the
+   * error alert. Navigating away sooner aborts the in-flight `PATCH`. The
+   * button only shows while the order is `authorized`.
+   */
   async cancel(orderId: string): Promise<void> {
     await this.page.getByRole('button', { name: `Cancel order ${orderId}` }).click();
     await this.page.getByRole('button', { name: `Confirm cancel ${orderId}` }).click();
+    await expect(this.status(orderId).filter({ hasText: 'Cancelled' }).or(this.alert(orderId))).toBeVisible();
   }
 }
