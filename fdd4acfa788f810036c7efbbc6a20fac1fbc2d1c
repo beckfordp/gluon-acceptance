@@ -1,0 +1,1 @@
+Task: Fill the guest email at signed-out checkout (FR1–FR2). CheckoutPage.fillShipping fills 'Email for order updates' when shown, then shipping; 4 step call sites use it. Fixed 14 scenarios.
