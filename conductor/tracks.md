@@ -6,6 +6,8 @@ This file tracks all major tracks for the project.
 
 ## Tracks
 
+- [ ] **Track: Acceptance C — Customer record and email history**
+  *Link: [./tracks/admin-emails_20261103/](./tracks/admin-emails_20261103/)*
 
 ---
 

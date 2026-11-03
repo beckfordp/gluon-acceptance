@@ -1,0 +1,8 @@
+{
+  "track_id": "admin-emails_20261103",
+  "type": "feature",
+  "status": "new",
+  "created_at": "2026-11-03T13:00:00Z",
+  "updated_at": "2026-11-03T13:00:00Z",
+  "description": "Acceptance C: customer record and email history; every customer email accepted through it (US-27, US-7.1, 9.9, 16.4, 17.5, 18.4, 19.4, 20.5)"
+}
