@@ -5,6 +5,7 @@ import { catalogProducts } from './api/catalog';
 import { allStock, stockFor, type StockRow } from './api/inventory';
 import { signUp } from './api/users';
 import { type Config, configFromEnv } from './config';
+import { AdminConsolePage } from './pages/AdminConsolePage';
 import { AuthDialog } from './pages/AuthDialog';
 import { CartPage } from './pages/CartPage';
 import { CatalogPage } from './pages/CatalogPage';
@@ -65,6 +66,7 @@ interface Fixtures {
   checkoutPage: CheckoutPage
   confirmationPage: ConfirmationPage
   fulfilmentPage: FulfilmentPage
+  adminConsole: AdminConsolePage
   authDialog: AuthDialog
   testData: TestData
   shopper: Shopper
@@ -100,6 +102,7 @@ export const test = base.extend<Fixtures>({
   checkoutPage: async ({ page }, use) => use(new CheckoutPage(page)),
   confirmationPage: async ({ page }, use) => use(new ConfirmationPage(page)),
   fulfilmentPage: async ({ page }, use) => use(new FulfilmentPage(page)),
+  adminConsole: async ({ page }, use) => use(new AdminConsolePage(page)),
   authDialog: async ({ page }, use) => use(new AuthDialog(page)),
   // eslint-disable-next-line no-empty-pattern -- Playwright requires the destructuring
   scenario: async ({}, use) => use({}),

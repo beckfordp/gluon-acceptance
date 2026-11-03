@@ -22,6 +22,8 @@ export class CheckoutPage {
   readonly expiry: Locator;
   /** Checkout's failure alert (decline, stock); the auth dialog's alert is separate. */
   readonly alert: Locator;
+  /** The guest email last filled, if checkout asked for one. */
+  guestEmailUsed: string | undefined;
 
   constructor(private readonly page: Page) {
     this.heading = page.getByRole('heading', { level: 1, name: 'Checkout' });
@@ -50,7 +52,10 @@ export class CheckoutPage {
 
   /** Fills the guest email when checkout asks for one (signed out), then the shipping address. */
   async fillShipping(address: AddressValues): Promise<void> {
-    if (await this.guestEmail.isVisible()) await this.guestEmail.fill(throwawayEmail());
+    if (await this.guestEmail.isVisible()) {
+      this.guestEmailUsed = throwawayEmail();
+      await this.guestEmail.fill(this.guestEmailUsed);
+    }
     await this.fillAddress(this.shipping, address);
   }
 
