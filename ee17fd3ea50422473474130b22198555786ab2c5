@@ -1,0 +1,1 @@
+Task: FulfilmentPage for gshop 2b3111c. Opens Admin → Show fulfilment, scopes locators to the Fulfilment region, waits for Refresh to settle (stale fetch overwrote actions). Fixed 9 scenarios.
