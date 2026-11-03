@@ -1,0 +1,4 @@
+Task: Remove teardown stock snapshot/restore (FR2, re-scoped 2026-11-03), track td24-restore-available-only_20261103.
+Changes: TestData no longer snapshots/restores inventory (snapshotStock, restore, sameStock, STABLE_READS removed); fixtures read current stock via stockFor; sameStock unit tests dropped; README, support.feature description, tech-stack updated.
+Why: API-level restore overwrote live reservations (TD-24); each run now starts from a reset + seed (bin/run-acceptance) per user rule 2026-11-03.
+Checks: tsc clean, lint clean, npm test 47/47, bddgen ok.
