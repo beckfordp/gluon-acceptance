@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 /** A card as typed into gshop's checkout form. */
 export interface TestCard {
   number: string

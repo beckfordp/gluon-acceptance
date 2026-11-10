@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 import type { APIRequestContext } from '@playwright/test';
 import { createBdd, test as base } from 'playwright-bdd';
 import { findOrder, type Order, placeOrder } from './api/orders';

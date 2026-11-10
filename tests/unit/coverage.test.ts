@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 import { describe, expect, it } from 'vitest';
 import { buildMatrix, parseFeature, parseStoryTasks, renderMatrix, type StoryTask } from '../../src/coverage';
 

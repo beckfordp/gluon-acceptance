@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
 # Phase 3 (Serving gshop, ACC-1.2) verification for suite-scaffold_20261031:
 # CI checks green, Playwright config loads and rejects bad env, every service
 # reachable on its OrbStack cluster DNS name, and gshop's dev server starts

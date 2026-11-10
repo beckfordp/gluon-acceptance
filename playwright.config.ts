@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 import { lookup } from 'node:dns/promises';
 import path from 'node:path';
 import { defineConfig, devices } from '@playwright/test';

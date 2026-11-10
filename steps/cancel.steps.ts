@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 import { expect } from '@playwright/test';
 import { findOrder } from '../src/api/orders';
 import { Given, Then, When } from '../src/fixtures';

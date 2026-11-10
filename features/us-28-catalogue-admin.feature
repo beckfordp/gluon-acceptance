@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+
 Feature: Catalogue stock (US-28)
   As an operator, I can see each product's stock in the catalogue and adjust
   it by one, and the change is saved to inventory.

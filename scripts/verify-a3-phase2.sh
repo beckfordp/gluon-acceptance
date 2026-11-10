@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
 # Phase 2 (US-2 cart, ACC-3.2) verification for browse-cart_20261031: the
 # whole Acceptance 3 slice (US-1 and US-2) green, inventory untouched.
 set -euo pipefail

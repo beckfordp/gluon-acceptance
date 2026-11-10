@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
 # Phase 2 (Runner, ACC-6.2) verification for traceability-runner_20261031:
 # gluon's bin/run-acceptance runs the whole suite green, with the coverage
 # matrix complete and inventory unchanged.

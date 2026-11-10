@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
 # Runs a tagged slice of the suite against gluon-local and checks it: CI checks
 # green, every expected scenario passed (none failed or skipped), inventory
 # byte-identical before and after, gshop's dev server gone afterwards.

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 import { describe, expect, it } from 'vitest';
 import { OUT_OF_SCOPE } from '../../src/outOfScope';
 

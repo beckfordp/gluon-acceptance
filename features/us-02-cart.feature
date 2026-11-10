@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+
 Feature: Add to cart (US-2)
   As a customer, I can add/remove items in a cart, so I can build an order
   before checking out.

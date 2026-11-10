@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 import type { APIRequestContext } from '@playwright/test';
 import { describe, expect, it } from 'vitest';
 import { setStock, type StockRow } from '../../src/api/inventory';

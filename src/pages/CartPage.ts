@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 import type { Locator, Page } from '@playwright/test';
 
 /** gshop's Cart screen: one line per product, `+1`/Remove per line, the total and Checkout. */

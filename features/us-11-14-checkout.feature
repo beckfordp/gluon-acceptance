@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+
 Feature: Checkout (US-11 to US-14)
   As a customer, I enter my shipping and billing address and card, and my
   order is placed with its stock reserved and payment authorised.

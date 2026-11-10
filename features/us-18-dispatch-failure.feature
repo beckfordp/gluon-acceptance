@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+
 Feature: Dispatch failure (US-18)
   As a customer, if my order can't be dispatched, my payment authorization is
   released and I'm told, so I'm not left holding a reservation and a payment

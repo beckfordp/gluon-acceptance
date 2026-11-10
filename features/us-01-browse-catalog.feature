@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+
 Feature: Browse catalog (US-1)
   As a customer, I can browse a product catalog, so I can find items to buy.
 

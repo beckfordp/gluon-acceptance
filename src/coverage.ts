@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 /**
  * Traceability (ACC-6.1): which of gluon's `docs/user-stories.md` tasks the
  * suite accepts, via each scenario's `@US-N.M` tags, and which are out of

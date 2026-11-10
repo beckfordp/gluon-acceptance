@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 export interface PollOptions {
   /** Named in the timeout error. */
   what: string

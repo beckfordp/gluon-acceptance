@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 import type { Locator, Page } from '@playwright/test';
 
 /** gshop's sign-in / create-account dialog, opened from Checkout's account banner. */

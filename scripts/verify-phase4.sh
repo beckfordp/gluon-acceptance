@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
 # Phase 4 (Smoke feature, ACC-1.3) verification for suite-scaffold_20261031:
 # CI checks green, catalog seeded, the @smoke feature passes against
 # gluon-local with Gherkin steps in the report, and gshop's dev server is

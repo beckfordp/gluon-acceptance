@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 import type { APIRequestContext } from '@playwright/test';
 import type { ConnectorStatus } from '../precheck';
 import { isRecord, readJson } from './shape';

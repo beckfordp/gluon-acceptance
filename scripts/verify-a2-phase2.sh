@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
 # Phase 2 (API helpers, fixtures, cleanup, precheck; ACC-2.1–2.3) verification
 # for fixtures-test-data_20261031: CI checks green, the @support feature
 # passes, inventory is byte-identical before and after, the scenario's orders

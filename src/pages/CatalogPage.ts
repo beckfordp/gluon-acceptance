@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 import { expect, type Locator, type Page } from '@playwright/test';
 
 /** gshop's Catalog screen: the landing view, a grid of product cards. */

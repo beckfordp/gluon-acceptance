@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 import type { Locator, Page } from '@playwright/test';
 import { throwawayEmail } from '../testData';
 

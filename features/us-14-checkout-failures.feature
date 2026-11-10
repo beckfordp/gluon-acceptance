@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+
 Feature: Checkout failures (US-14)
   A declined card, stock that runs out, or an invalid form stops checkout
   with a message saying why, and no order is created until it's put right.

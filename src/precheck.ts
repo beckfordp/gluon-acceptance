@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 /** The Debezium outbox connectors every event flow depends on. */
 export const OUTBOX_CONNECTORS = [
   'fulfilment-outbox-connector',

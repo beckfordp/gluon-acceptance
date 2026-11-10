@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+
 Feature: Customer record and email history (US-27, and every customer email)
   As an operator, I can open a customer's record and see their orders and
   every email we sent them, so I can answer "did you tell me?" without

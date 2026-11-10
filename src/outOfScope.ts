@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 /**
  * Done user-story tasks the suite deliberately doesn't accept through gshop,
  * and why (ACC-6.1). Everything else done must be tagged on a scenario.

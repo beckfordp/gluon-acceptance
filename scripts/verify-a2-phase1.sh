@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
 # Phase 1 (Pure helpers and config) verification for fixtures-test-data_20261031:
 # CI checks green, coverage thresholds met, and gshop's env pins mocks off.
 #   scripts/verify-a2-phase1.sh

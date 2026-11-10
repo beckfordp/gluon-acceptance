@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
 # Phase 1 (Coverage matrix, ACC-6.1) verification for traceability-runner_20261031:
 # CI checks and coverage green, and the matrix complete (no done task missing).
 #   scripts/verify-a6-phase1.sh

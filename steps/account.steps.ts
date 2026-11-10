@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 import { expect, type Page } from '@playwright/test';
 import { isRecord } from '../src/api/shape';
 import { Given, Then, When } from '../src/fixtures';

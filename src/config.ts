@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 /**
  * Every Gluon service the suite (or gshop) talks to. Each defaults to its
  * in-cluster DNS name, which OrbStack also resolves on the Mac host (ADR

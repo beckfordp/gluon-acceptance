@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 import { describe, expect, it } from 'vitest';
 import { SERVICES, configFromEnv, hostResolverRules, loadConfig, serviceHosts, viteEnv } from '../../src/config';
 

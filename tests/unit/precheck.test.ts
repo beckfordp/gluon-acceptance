@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 import { describe, expect, it } from 'vitest';
 import { OUTBOX_CONNECTORS, evaluatePrecheck, formatPrecheck, type PrecheckInput } from '../../src/precheck';
 

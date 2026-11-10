@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+
 Feature: Fulfilment and capture (US-17, US-19)
   As a customer, once my payment is authorized my order is picked, packed and
   dispatched, and my card is only charged once it ships.

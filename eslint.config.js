@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 import js from '@eslint/js'
 import stylistic from '@stylistic/eslint-plugin'
 import globals from 'globals'

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+
 Feature: Account (US-16)
   As a customer, I can sign up and log in, so my identity is established
   before I check out. gshop offers both from the checkout screen.

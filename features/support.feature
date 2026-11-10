@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+
 @support
 Feature: Test data fixtures (ACC-2)
   Scenarios that set up data through the services' APIs. Every order a

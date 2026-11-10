@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 // Writes target/coverage-matrix.md: each gluon user-story task against the
 // scenarios tagged with it (ACC-6.1). Exits 1, listing the problems, unless
 // every done task is covered or out of scope.

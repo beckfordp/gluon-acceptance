@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 import { expect } from '@playwright/test';
 import { setStock } from '../src/api/inventory';
 import { ordersFor } from '../src/api/orders';

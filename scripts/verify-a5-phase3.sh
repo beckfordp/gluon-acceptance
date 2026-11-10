@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
 # Phase 3 (Capture failure, ACC-5.3) verification for fulfilment-capture_20261031:
 # the whole of Acceptance 5, both features.
 set -euo pipefail

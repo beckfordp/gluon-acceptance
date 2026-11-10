@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+
 Feature: Operator order console (US-24, US-25, US-22, US-20)
   As an operator, I see every order with its reserved stock and fulfilment,
   and I can cancel an order or expire its payment authorization, watching

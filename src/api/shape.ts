@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 import type { APIResponse } from '@playwright/test';
 
 type FieldType = 'string' | 'number';

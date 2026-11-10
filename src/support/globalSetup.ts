@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 import { request as playwrightRequest } from '@playwright/test';
 import { configFromEnv, SERVICES } from '../config';
 import { connectorStatuses } from '../api/connect';

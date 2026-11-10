@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 import type { Locator, Page } from '@playwright/test';
 
 /** gshop's Order Confirmation screen, shown once checkout's order is authorized. */

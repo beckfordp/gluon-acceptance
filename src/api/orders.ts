@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 import type { APIRequestContext } from '@playwright/test';
 import type { Product, TestCard } from '../testData';
 import { arrayOf, expectStatus, hasFields, isRecord, readJson } from './shape';

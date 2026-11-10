@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
 # Prints every inventory row's sku, available and reserved, sorted, one per
 # line — compare two runs to prove a suite run left inventory untouched.
 #   scripts/inventory-snapshot.sh [inventory-url]

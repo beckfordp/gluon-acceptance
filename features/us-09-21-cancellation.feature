@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: MIT
+
 Feature: Cancellation (US-9, US-21)
   As a customer, I can cancel an order until it ships: the payment hold and
   reserved stock are released and fulfilment stops. Once it has shipped, I'm
