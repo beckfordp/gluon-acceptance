@@ -6,9 +6,6 @@ This file tracks all major tracks for the project.
 
 ## Tracks
 
-- [ ] **Track: Behaviour tags and a JSON report (gluon all-Rust prep P5b)**
-  *Link: [./tracks/behaviour-tags_20261120/](./tracks/behaviour-tags_20261120/)*
-
 
 ---
 

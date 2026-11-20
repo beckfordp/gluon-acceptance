@@ -1,8 +1,8 @@
 {
   "track_id": "behaviour-tags_20261120",
   "type": "feature",
-  "status": "in_progress",
+  "status": "archived",
   "created_at": "2026-11-20T03:10:00Z",
-  "updated_at": "2026-11-20T03:10:00Z",
+  "updated_at": "2026-11-20T03:20:00Z",
   "description": "Scenarios tag the functional behaviour rows they exercise (@NOTIF-F16); a JSON report for gluon verify-port's tally (gluon all-Rust prep P5b)."
 }
