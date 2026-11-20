@@ -77,6 +77,16 @@ scenarios), out of scope (reason in `src/outOfScope.ts`), or not built yet. It f
 listing the problems, if a done task is neither covered nor out of scope, or a tag or
 out-of-scope entry names a task that isn't done. Local only: CI has no gluon checkout.
 
+### Behaviour tags
+
+A scenario also tags the functional rows of gluon's behaviour catalogue
+(`tests/contract/docs/behaviours.md`) it exercises: `@NOTIF-F16`, on the scenario or its
+feature, never a wire (`-W`) row. Every run writes the Playwright JSON report
+`target/acceptance-results.json`; gluon `bin/verify-port <service> --acceptance
+tests/acceptance/target/acceptance-results.json` counts a row met when every scenario
+(and contract check) citing it passed. Give it only a run against that port.
+tests/contract's CI holds the tags to the catalogue.
+
 ### Test data and cleanup
 
 Scenarios get their data from fixtures (`src/fixtures.ts`): a fresh anonymous shopper

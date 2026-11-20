@@ -8,7 +8,7 @@ Feature: Customer record and email history (US-27, and every customer email)
   Background:
     Given a product is in stock
 
-  @US-27.1 @US-27.2 @US-27.4 @US-7.1 @US-17.5 @US-19.4
+  @US-27.1 @US-27.2 @US-27.4 @US-7.1 @US-17.5 @US-19.4 @NOTIF-F16 @NOTIF-F26 @NOTIF-F31
   Scenario: A guest's record shows their order and its emails
     Given I have bought it with card "4242 4242 4242 4242"
     And the operator picks, packs and dispatches my order
@@ -17,7 +17,7 @@ Feature: Customer record and email history (US-27, and every customer email)
     Then it shows my order as "confirmed"
     And it lists the emails "Your order has shipped", "Your payment was received" and "Your order is confirmed"
 
-  @US-19.4 @US-7.1
+  @US-19.4 @US-7.1 @NOTIF-F17 @NOTIF-F27
   Scenario: A card declined at capture is emailed
     Given I have bought it with card "5555 5555 5555 4444"
     And the operator picks, packs and dispatches my order
@@ -25,7 +25,7 @@ Feature: Customer record and email history (US-27, and every customer email)
     When the operator opens my customer record
     Then it lists the emails "We couldn't take your payment" and "We couldn't process your payment"
 
-  @US-18.4
+  @US-18.4 @NOTIF-F32
   Scenario: A failed dispatch is emailed
     Given I have bought it with card "4242 4242 4242 4242"
     And the operator opens order processing
@@ -34,7 +34,7 @@ Feature: Customer record and email history (US-27, and every customer email)
     When the operator opens my customer record
     Then it lists the email "We couldn't ship your order"
 
-  @US-9.9 @US-20.5
+  @US-9.9 @US-20.5 @NOTIF-F18
   Scenario Outline: The cancellation email says why: <why>
     Given I have bought it with card "4242 4242 4242 4242"
     And my order is cancelled by "<who>"
@@ -47,7 +47,7 @@ Feature: Customer record and email history (US-27, and every customer email)
       | support cancelled it     | the operator | was cancelled by our support team.                       |
       | the payment hold ran out | expiry       | was cancelled because its payment authorization expired. |
 
-  @US-16.4 @US-27.4
+  @US-16.4 @US-27.4 @NOTIF-F6
   Scenario: A registered customer's record shows their welcome email
     Given I am a registered customer
     And I am at checkout

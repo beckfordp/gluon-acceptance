@@ -38,7 +38,9 @@ export default defineConfig({
   // (half the cores) order-service fails its liveness probe and restarts.
   workers: 2,
   forbidOnly: !!process.env.CI,
-  reporter: [['list'], ['html', { open: 'never' }]],
+  // The JSON report is gluon's behaviour evidence: `bin/verify-port <svc> --acceptance
+  // target/acceptance-results.json` counts each scenario's `@<SVC>-F<n>` tags.
+  reporter: [['list'], ['html', { open: 'never' }], ['json', { outputFile: 'target/acceptance-results.json' }]],
   use: {
     baseURL: config.gshopUrl,
     trace: 'retain-on-failure',
