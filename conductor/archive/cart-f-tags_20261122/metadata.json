@@ -1,0 +1,8 @@
+{
+  "track_id": "cart-f-tags_20261122",
+  "type": "chore",
+  "status": "archived",
+  "created_at": "2026-11-22T21:08:00Z",
+  "updated_at": "2026-11-22T21:10:00Z",
+  "description": "Tag the us-02 cart scenarios with the CART-F rows they exercise, for staged runs (gluon all-Rust Stage A)."
+}

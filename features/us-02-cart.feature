@@ -9,26 +9,26 @@ Feature: Add to cart (US-2)
     And I open the shop
     And I browse the catalog
 
-  @US-2.1
+  @US-2.1 @CART-F1 @CART-F2
   Scenario: A new shopper's cart is empty
     When I view my cart
     Then my cart is empty
 
-  @US-2.1
+  @US-2.1 @CART-F3 @CART-F2
   Scenario: Adding a product puts it in my cart
     When I add it to my cart
     Then the product shows it was added
     When I view my cart
     Then my cart has it with quantity 1
 
-  @US-2.1
+  @US-2.1 @CART-F3
   Scenario: Adding one more increases the quantity and total
     Given I have added it to my cart
     When I view my cart
     And I increase its quantity
     Then my cart has it with quantity 2
 
-  @US-2.1
+  @US-2.1 @CART-F5
   Scenario: Removing the product empties my cart
     Given I have added it to my cart
     When I view my cart
