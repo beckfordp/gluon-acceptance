@@ -1,0 +1,8 @@
+{
+  "track_id": "staged-precheck_20261122",
+  "type": "feature",
+  "status": "in_progress",
+  "created_at": "2026-11-22T20:55:00Z",
+  "updated_at": "2026-11-22T20:55:00Z",
+  "description": "Staged precheck: ACCEPTANCE_SERVICES limits the precheck to listed services (gluon all-Rust Stage A P0.5)."
+}
