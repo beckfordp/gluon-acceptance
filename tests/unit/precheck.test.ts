@@ -1,7 +1,9 @@
 // SPDX-License-Identifier: MIT
 
 import { describe, expect, it } from 'vitest';
-import { OUTBOX_CONNECTORS, evaluatePrecheck, formatPrecheck, type PrecheckInput } from '../../src/precheck';
+import {
+  OUTBOX_CONNECTORS, evaluatePrecheck, formatPrecheck, stagedServices, type PrecheckInput,
+} from '../../src/precheck';
 
 const running = OUTBOX_CONNECTORS.map((name) => ({ name, state: 'RUNNING', taskStates: ['RUNNING'] }));
 
@@ -60,6 +62,39 @@ describe('evaluatePrecheck', () => {
     expect(evaluatePrecheck({ ...healthy, catalogCount: 0 })).toEqual([`Catalog is empty; ${fix}`]);
     expect(evaluatePrecheck({ ...healthy, catalogCount: 'HTTP 502' }))
       .toEqual([`Catalog unreadable (HTTP 502); ${fix}`]);
+  });
+});
+
+describe('a staged precheck (ACCEPTANCE_SERVICES, all-Rust Stage A P0.5)', () => {
+  it('checks only the staged services\' connectors, and the catalog only when staged', () => {
+    const problems = evaluatePrecheck({
+      ...healthy,
+      connectors: [{ name: 'user-outbox-connector', state: 'RUNNING', taskStates: ['RUNNING'] }],
+      catalogCount: 0,
+      staged: ['user', 'cart'],
+    });
+    expect(problems).toEqual([]);
+    expect(evaluatePrecheck({ ...healthy, catalogCount: 0, staged: ['catalog'] }))
+      .toEqual(['Catalog is empty; seed it (services/catalog-service/scripts/seed-watches.sh)']);
+    expect(evaluatePrecheck({ ...healthy, connectors: [], staged: ['order'] })).toEqual([
+      'Debezium connector order-outbox-connector is missing; re-create connectors (bin/k8s-local-up)',
+    ]);
+  });
+});
+
+describe('stagedServices', () => {
+  it('is every service when ACCEPTANCE_SERVICES is unset', () => {
+    expect(stagedServices({})).toBeUndefined();
+  });
+
+  it('reads short or full names, comma or space separated', () => {
+    expect(stagedServices({ ACCEPTANCE_SERVICES: 'cart, catalog-service user' }))
+      .toEqual(['cart', 'catalog', 'user']);
+  });
+
+  it('refuses an empty list or an unknown service, naming it', () => {
+    expect(() => stagedServices({ ACCEPTANCE_SERVICES: ' ' })).toThrow('lists no service');
+    expect(() => stagedServices({ ACCEPTANCE_SERVICES: 'cart,nope' })).toThrow("unknown service 'nope'");
   });
 });
 

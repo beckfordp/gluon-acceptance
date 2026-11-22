@@ -3,7 +3,7 @@
 import { request as playwrightRequest } from '@playwright/test';
 import { configFromEnv, SERVICES } from '../config';
 import { connectorStatuses } from '../api/connect';
-import { evaluatePrecheck, formatPrecheck, type Outcome } from '../precheck';
+import { evaluatePrecheck, formatPrecheck, stagedServices, type Outcome } from '../precheck';
 
 /** The first line of a request failure, minus Playwright's method prefix. */
 function reason(error: unknown): string {
@@ -18,9 +18,10 @@ function reason(error: unknown): string {
  */
 export default async function precheck(): Promise<void> {
   const config = configFromEnv();
+  const staged = stagedServices(process.env);
   const request = await playwrightRequest.newContext({ timeout: 10_000 });
   try {
-    const services = await Promise.all(SERVICES.map(async (name) => {
+    const services = await Promise.all((staged ?? SERVICES).map(async (name) => {
       const url = config.serviceUrls[name];
       const outcome: Outcome = await request.get(`${url}/health/ready`)
         .then((r) => r.status(), reason);
@@ -30,7 +31,7 @@ export default async function precheck(): Promise<void> {
     const catalogCount = await request.get(`${config.serviceUrls.catalog}/catalogs?limit=1&offset=0`)
       .then((r) => (r.ok() ? Number(r.headers()['x-total-count'] ?? 0) : `HTTP ${r.status()}`), reason);
 
-    const problems = evaluatePrecheck({ services, connectors, catalogCount });
+    const problems = evaluatePrecheck({ services, connectors, catalogCount, staged });
     if (problems.length > 0) throw new Error(formatPrecheck(problems));
   } finally {
     await request.dispose();
