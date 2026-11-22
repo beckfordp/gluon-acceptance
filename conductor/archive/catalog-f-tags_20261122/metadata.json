@@ -1,0 +1,8 @@
+{
+  "track_id": "catalog-f-tags_20261122",
+  "type": "chore",
+  "status": "archived",
+  "created_at": "2026-11-22T22:20:00Z",
+  "updated_at": "2026-11-22T22:25:00Z",
+  "description": "Tag the us-01 browse scenarios with CATALOG-F6, for staged runs (gluon all-Rust Stage A)."
+}
