@@ -1,7 +1,7 @@
 {
   "track_id": "fulfilment-f-tags_20261123",
   "type": "chore",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-11-23T06:46:00Z",
   "updated_at": "2026-11-23T06:46:00Z",
   "description": "FUL-F tags on the acceptance scenarios fulfilment-service serves (gluon all-Rust Stage A fulfilment)."
