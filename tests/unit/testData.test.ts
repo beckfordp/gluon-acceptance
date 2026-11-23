@@ -63,18 +63,27 @@ describe('pickStockedProduct', () => {
     expect(pickStockedProduct(catalog, inventory, { needed: 6 })).toEqual(catalog[3]);
   });
 
-  it('skips candidates by offset so parallel workers get different products', () => {
-    expect(pickStockedProduct(catalog, inventory, { offset: 1 })).toEqual(catalog[2]);
-    expect(pickStockedProduct(catalog, inventory, { offset: 2 })).toEqual(catalog[3]);
+  it("picks from the worker's own share of the catalog, by catalog position", () => {
+    // Worker 0 of 2 owns a and c; worker 1 owns b and d.
+    expect(pickStockedProduct(catalog, inventory, { worker: 0, workers: 2 })).toEqual(catalog[2]);
+    expect(pickStockedProduct(catalog, inventory, { worker: 1, workers: 2 })).toEqual(catalog[1]);
   });
 
-  it('wraps the offset round the candidates', () => {
-    expect(pickStockedProduct(catalog, inventory, { offset: 3 })).toEqual(catalog[1]);
+  it('keeps the shares apart however stock moves', () => {
+    // b sold out: worker 1 moves to its own d, never to worker 0's c.
+    const soldOut = inventory.map((row) => (row.sku === 'b' ? { ...row, quantityAvailable: 1 } : row));
+    expect(pickStockedProduct(catalog, soldOut, { needed: 2, worker: 1, workers: 2 })).toEqual(catalog[3]);
+    expect(pickStockedProduct(catalog, soldOut, { needed: 2, worker: 0, workers: 2 })).toBeUndefined();
+  });
+
+  it('picks the last of its share from the end', () => {
+    expect(pickStockedProduct(catalog, inventory, { worker: 1, workers: 2, fromEnd: true })).toEqual(catalog[3]);
   });
 
   it('skips excluded SKUs, so a second product differs from the first', () => {
     expect(pickStockedProduct(catalog, inventory, { exclude: ['b'] })).toEqual(catalog[2]);
-    expect(pickStockedProduct(catalog, inventory, { exclude: ['b'], offset: 1 })).toEqual(catalog[3]);
+    expect(pickStockedProduct(catalog, inventory, { exclude: ['d'], worker: 1, workers: 2, fromEnd: true }))
+      .toEqual(catalog[1]);
   });
 
   it('ignores catalog products with no inventory row', () => {

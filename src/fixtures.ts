@@ -84,15 +84,14 @@ interface Fixtures {
 async function stock(
   request: APIRequestContext,
   config: Config,
-  { offset, exclude = [], fromEnd = false }: { offset: number; exclude?: string[]; fromEnd?: boolean },
+  { worker, workers, exclude = [], fromEnd = false }: { worker: number; workers: number; exclude?: string[]; fromEnd?: boolean },
 ): Promise<StockedProduct> {
   const [catalog, inventory] = await Promise.all([
     // gshop's first page, so the product is on screen without paging.
     catalogProducts(request, config.serviceUrls.catalog, 20),
     allStock(request, config.serviceUrls.inventory),
   ]);
-  const ordered = fromEnd ? [...catalog].reverse() : catalog;
-  const product = pickStockedProduct(ordered, inventory, { needed: 2, offset, exclude });
+  const product = pickStockedProduct(catalog, inventory, { needed: 2, worker, workers, fromEnd, exclude });
   if (product === undefined) throw new Error('No catalog product has stock: re-run seed-watches.sh');
   return { ...product, stock: await stockFor(request, config.serviceUrls.inventory, product.sku) };
 }
@@ -141,13 +140,14 @@ export const test = base.extend<Fixtures>({
   },
 
   stockedProduct: async ({ request, config }, use, testInfo) => {
-    await use(await stock(request, config, { offset: testInfo.parallelIndex }));
+    await use(await stock(request, config, { worker: testInfo.parallelIndex, workers: testInfo.config.workers }));
   },
 
-  // Picked from the far end of the catalog, so it isn't another worker's `stockedProduct`.
+  // The far end of the worker's own share, so it isn't its `stockedProduct` either.
   otherStockedProduct: async ({ request, config, stockedProduct }, use, testInfo) => {
     await use(await stock(request, config, {
-      offset: testInfo.parallelIndex,
+      worker: testInfo.parallelIndex,
+      workers: testInfo.config.workers,
       exclude: [stockedProduct.sku],
       fromEnd: true,
     }));
