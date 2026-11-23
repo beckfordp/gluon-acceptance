@@ -25,7 +25,7 @@ Feature: Customer record and email history (US-27, and every customer email)
     When the operator opens my customer record
     Then it lists the emails "We couldn't take your payment" and "We couldn't process your payment"
 
-  @US-18.4 @NOTIF-F32
+  @US-18.4 @NOTIF-F32 @FUL-F8
   Scenario: A failed dispatch is emailed
     Given I have bought it with card "4242 4242 4242 4242"
     And the operator opens order processing

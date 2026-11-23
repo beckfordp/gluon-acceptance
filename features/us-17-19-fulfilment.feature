@@ -7,7 +7,7 @@ Feature: Fulfilment and capture (US-17, US-19)
   Background:
     Given a product is in stock
 
-  @US-17.1 @US-17.2 @US-17.7
+  @US-17.1 @US-17.2 @US-17.7 @FUL-F1 @FUL-F5 @FUL-F6 @FUL-F7
   Scenario Outline: An operator moves my order from <from> to <to>
     Given I have bought it with card "4242 4242 4242 4242"
     And the operator opens order processing
@@ -21,14 +21,14 @@ Feature: Fulfilment and capture (US-17, US-19)
       | Picking | packs          | Packed     |
       | Packed  | dispatches     | Dispatched |
 
-  @US-14.3 @US-17.3 @US-17.4 @US-19.1 @US-19.2 @US-19.5 @INV-F13 @PAY-F10 @ORDER-F11 @ORDER-F14
+  @US-14.3 @US-17.3 @US-17.4 @US-19.1 @US-19.2 @US-19.5 @INV-F13 @PAY-F10 @ORDER-F11 @ORDER-F14 @FUL-F7
   Scenario: My payment is captured once my order is dispatched
     Given I have bought it with card "4242 4242 4242 4242"
     When the operator picks, packs and dispatches my order
     Then it shows the carrier and tracking number
     And my order history eventually shows status "Confirmed"
 
-  @US-19.1 @US-19.3 @US-19.5 @PAY-F11 @ORDER-F12
+  @US-19.1 @US-19.3 @US-19.5 @PAY-F11 @ORDER-F12 @FUL-F7
   Scenario: A card declined at capture leaves my order with payment failed
     Given I have bought it with card "5555 5555 5555 4444"
     When the operator picks, packs and dispatches my order

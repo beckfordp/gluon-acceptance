@@ -15,7 +15,7 @@ Feature: Cancellation (US-9, US-21)
     Then I see my order with status "Cancelled"
     And its stock is released
 
-  @US-9.5 @INV-F12 @PAY-F12 @ORDER-F8
+  @US-9.5 @INV-F12 @PAY-F12 @ORDER-F8 @FUL-F10
   Scenario Outline: Cancelling while <state> stops fulfilment
     Given the operator opens order processing
     And the operator has moved my order to "<state>"
@@ -29,7 +29,7 @@ Feature: Cancellation (US-9, US-21)
       | Picking |
       | Packed  |
 
-  @US-21.1 @US-21.5 @ORDER-F9
+  @US-21.1 @US-21.5 @ORDER-F9 @FUL-F7
   Scenario: I can't cancel once my order has shipped
     Given I open my order history
     And meanwhile the operator picks, packs and dispatches my order
