@@ -21,7 +21,7 @@ Feature: Checkout failures (US-14)
       | declined card       | approved card       |
       | 4000 0000 0000 0002 | 4242 4242 4242 4242 |
 
-  @US-4.1 @US-14.2 @US-14.4
+  @US-4.1 @US-14.2 @US-14.4 @INV-F7
   Scenario Outline: An item that sold out (<available> left) can be removed and the rest ordered
     Given I am at checkout with 2 of it and 1 of another product
     When only <available> of it is left in stock

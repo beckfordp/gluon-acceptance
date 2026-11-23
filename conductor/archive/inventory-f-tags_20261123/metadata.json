@@ -1,0 +1,8 @@
+{
+  "track_id": "inventory-f-tags_20261123",
+  "type": "chore",
+  "status": "archived",
+  "created_at": "2026-11-23T00:40:00Z",
+  "updated_at": "2026-11-23T00:40:00Z",
+  "description": "INV-F tags on the checkout, cancellation, fulfilment and admin scenarios (all-Rust A inventory)"
+}
