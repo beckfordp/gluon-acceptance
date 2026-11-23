@@ -17,7 +17,7 @@ Feature: Customer record and email history (US-27, and every customer email)
     Then it shows my order as "confirmed"
     And it lists the emails "Your order has shipped", "Your payment was received" and "Your order is confirmed"
 
-  @US-19.4 @US-7.1 @NOTIF-F17 @NOTIF-F27
+  @US-19.4 @US-7.1 @NOTIF-F17 @NOTIF-F27 @PAY-F11
   Scenario: A card declined at capture is emailed
     Given I have bought it with card "5555 5555 5555 4444"
     And the operator picks, packs and dispatches my order

@@ -9,13 +9,13 @@ Feature: Cancellation (US-9, US-21)
     Given a product is in stock
     And I have bought it with card "4242 4242 4242 4242"
 
-  @US-9.1 @US-9.4 @US-9.8 @INV-F12
+  @US-9.1 @US-9.4 @US-9.8 @INV-F12 @PAY-F12
   Scenario: I cancel my authorized order
     When I cancel my order from my order history
     Then I see my order with status "Cancelled"
     And its stock is released
 
-  @US-9.5 @INV-F12
+  @US-9.5 @INV-F12 @PAY-F12
   Scenario Outline: Cancelling while <state> stops fulfilment
     Given the operator opens order processing
     And the operator has moved my order to "<state>"

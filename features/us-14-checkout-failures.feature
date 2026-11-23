@@ -7,7 +7,7 @@ Feature: Checkout failures (US-14)
   Background:
     Given a product is in stock
 
-  @US-14.1 @US-14.2 @US-14.4
+  @US-14.1 @US-14.2 @US-14.4 @PAY-F6
   Scenario Outline: A declined card can be retried with another
     Given I am at checkout
     When I place my order paying with card "<declined card>"

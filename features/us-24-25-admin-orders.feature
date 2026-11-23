@@ -18,7 +18,7 @@ Feature: Operator order console (US-24, US-25, US-22, US-20)
 
   # Waits for fulfilment to have the order before acting: a cancel that beats
   # the task's creation leaves it Pending (gluon TD-23).
-  @US-22.2 @US-22.4 @US-25.2 @INV-F11 @INV-F12
+  @US-22.2 @US-22.4 @US-25.2 @INV-F11 @INV-F12 @PAY-F12
   Scenario: The operator cancels my order
     Given the operator opens my order in the console
     And the console shows my order "authorized" with fulfilment "PENDING" and its stock "active"
@@ -27,7 +27,7 @@ Feature: Operator order console (US-24, US-25, US-22, US-20)
     And its stock is released
     And my order history eventually shows status "Cancelled"
 
-  @US-20.1 @US-20.2 @US-20.3 @US-20.4 @US-20.6 @US-25.1 @US-25.2
+  @US-20.1 @US-20.2 @US-20.3 @US-20.4 @US-20.6 @US-25.1 @US-25.2 @PAY-F9
   Scenario: The operator expires my payment authorization
     Given the operator opens my order in the console
     And the console shows my order "authorized" with fulfilment "PENDING" and its stock "active"
