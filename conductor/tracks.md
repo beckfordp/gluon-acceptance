@@ -18,5 +18,3 @@ scope: gluon `PLAN.md` "Acceptance Testing". When ready, run `/conductor:newTrac
 
 
 
-- [~] **Track: PAY-F tags on the scenarios payment serves (all-Rust A payment)**
-  *Link: [./tracks/payment-f-tags_20261123/](./tracks/payment-f-tags_20261123/)*
