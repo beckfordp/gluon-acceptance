@@ -1,0 +1,8 @@
+{
+  "track_id": "worker-shares_20261123",
+  "type": "bug",
+  "status": "in_progress",
+  "created_at": "2026-11-23T00:55:00Z",
+  "updated_at": "2026-11-23T00:55:00Z",
+  "description": "Each Playwright worker picks its stocked product from its own share of the catalog, so stock moving can't make two workers share a SKU (gluon all-Rust Stage A O1)."
+}
