@@ -6,8 +6,6 @@ This file tracks all major tracks for the project.
 
 ## Tracks
 
-- [~] **Track: FUL-F tags on the scenarios fulfilment serves (all-Rust A fulfilment)**
-  *Link: [./tracks/fulfilment-f-tags_20261123/](./tracks/fulfilment-f-tags_20261123/)*
 
 ---
 
