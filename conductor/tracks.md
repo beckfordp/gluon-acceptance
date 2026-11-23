@@ -17,5 +17,3 @@ scope: gluon `PLAN.md` "Acceptance Testing". When ready, run `/conductor:newTrac
 
 
 
-- [~] **Track: each worker picks from its own share of the catalog (all-Rust Stage A O1)**
-  *Link: [./tracks/worker-shares_20261123/](./tracks/worker-shares_20261123/)*
