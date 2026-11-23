@@ -1,7 +1,7 @@
 {
   "track_id": "order-f-tags_20261123",
   "type": "chore",
-  "status": "in_progress",
+  "status": "completed",
   "created_at": "2026-11-23T05:43:00Z",
   "updated_at": "2026-11-23T05:43:00Z",
   "description": "ORDER-F tags on the acceptance scenarios order-service serves (gluon all-Rust Stage A order)."
