@@ -18,3 +18,6 @@ scope: gluon `PLAN.md` "Acceptance Testing". When ready, run `/conductor:newTrac
 
 
 
+
+- [~] **Track: ORDER-F tags on the scenarios order serves (all-Rust A order)**
+  *Link: [./tracks/order-f-tags_20261123/](./tracks/order-f-tags_20261123/)*
