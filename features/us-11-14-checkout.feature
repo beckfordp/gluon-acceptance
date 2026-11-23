@@ -8,7 +8,7 @@ Feature: Checkout (US-11 to US-14)
     Given a product is in stock
     And I am at checkout
 
-  @US-3.1 @US-4.1 @US-8.1 @US-11.1 @US-11.2 @US-12.2 @US-13.1 @US-13.2 @US-13.3 @US-14.1 @US-14.4 @INV-F7 @PAY-F1 @PAY-F5
+  @US-3.1 @US-4.1 @US-8.1 @US-11.1 @US-11.2 @US-12.2 @US-13.1 @US-13.2 @US-13.3 @US-14.1 @US-14.4 @INV-F7 @PAY-F1 @PAY-F5 @ORDER-F1 @ORDER-F5
   Scenario: An anonymous shopper places an order
     When I place my order paying with card "4242 4242 4242 4242"
     Then my order is placed
@@ -17,7 +17,7 @@ Feature: Checkout (US-11 to US-14)
     And its stock is reserved
     And my order history eventually shows status "Authorized"
 
-  @US-12.2 @PAY-F1
+  @US-12.2 @PAY-F1 @ORDER-F1
   Scenario: Billing address different from shipping
     When I enter my shipping address
     And I enter a different billing address
@@ -25,7 +25,7 @@ Feature: Checkout (US-11 to US-14)
     And I place my order
     Then my order is placed
 
-  @US-8.1 @US-14.4 @US-16.5
+  @US-8.1 @US-14.4 @US-16.5 @ORDER-F6
   Scenario: A signed-in customer's order is saved to their account
     Given I am a registered customer
     When I sign in

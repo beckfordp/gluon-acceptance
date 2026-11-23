@@ -10,7 +10,7 @@ Feature: Dispatch failure (US-18)
     And I have bought it with card "4242 4242 4242 4242"
     And the operator opens order processing
 
-  @US-18.1 @US-18.3 @US-18.5
+  @US-18.1 @US-18.3 @US-18.5 @ORDER-F14
   Scenario Outline: A problem reported while <state> fails the dispatch
     Given the operator has moved my order to "<state>"
     When the operator reports a problem: "Damaged in the warehouse"

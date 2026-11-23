@@ -21,14 +21,14 @@ Feature: Fulfilment and capture (US-17, US-19)
       | Picking | packs          | Packed     |
       | Packed  | dispatches     | Dispatched |
 
-  @US-14.3 @US-17.3 @US-17.4 @US-19.1 @US-19.2 @US-19.5 @INV-F13 @PAY-F10
+  @US-14.3 @US-17.3 @US-17.4 @US-19.1 @US-19.2 @US-19.5 @INV-F13 @PAY-F10 @ORDER-F11 @ORDER-F14
   Scenario: My payment is captured once my order is dispatched
     Given I have bought it with card "4242 4242 4242 4242"
     When the operator picks, packs and dispatches my order
     Then it shows the carrier and tracking number
     And my order history eventually shows status "Confirmed"
 
-  @US-19.1 @US-19.3 @US-19.5 @PAY-F11
+  @US-19.1 @US-19.3 @US-19.5 @PAY-F11 @ORDER-F12
   Scenario: A card declined at capture leaves my order with payment failed
     Given I have bought it with card "5555 5555 5555 4444"
     When the operator picks, packs and dispatches my order
